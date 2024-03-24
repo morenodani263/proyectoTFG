@@ -48,6 +48,9 @@ namespace UltimateMatch.ViewModels
         private string mensajesError;
 
         [ObservableProperty]
+        private string codigoRol;
+
+        [ObservableProperty]
         private PopupRegistroErrores popupErrores;
         public RegisterViewModel()
         {
@@ -70,10 +73,14 @@ namespace UltimateMatch.ViewModels
         }
         
         [RelayCommand]
-        public async Task RegistroUsuarioAsync()
+        public async Task RegistroUsuario()
         {
             //Le pongo un id predeterminado, ya que luego se le establece uno en la api
             Usuario.Usuario_id = 1;
+            Usuario.FechaNacimiento = Usuario.FechaNacimiento.Replace(" 0:00:00", "");
+            Usuario.Avatar = AvatarImage64;
+            Usuario.Rol = "";
+            await EstablecerRol();
             RequestModel request = new RequestModel(method: "POST",
                                                     route:"/auth/register",
                                                     data: Usuario,
@@ -84,6 +91,26 @@ namespace UltimateMatch.ViewModels
             Application.Current.MainPage.DisplayAlert("REGISTRO USUARIO", response.Message, "ACEPTAR") :
             App.Current.MainPage.DisplayAlert("ERROR AL REGISTRAR",
             "No se ha podido registrar el usuario, por favor vuelva a intentarlo", "ACEPTAR"));
+        }
+
+        [RelayCommand]
+        public async Task EstablecerRol()
+        {
+            
+            RequestModel request = new RequestModel(method: "GET",
+                                                    route: "/auth/rol/" + CodigoRol,
+                                                    data: String.Empty,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+            //si es 0 registro exitoso, sino error al registrar
+            if(response.Success == 0)
+            {
+                Usuario.Rol = "administrador";
+            }
+            else
+            {
+                Usuario.Rol = "invitado";
+            }
         }
 
 

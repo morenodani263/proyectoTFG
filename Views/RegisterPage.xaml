@@ -121,14 +121,15 @@
                     Text="Fecha nacimiento"
                     VerticalOptions="Start" />
 
-                <Picker
+                <DatePicker
                     Margin="5,0,0,0"
                     Background="White"
+                    Date="{Binding Usuario.FechaNacimiento}"
                     FontAttributes="Bold"
                     FontFamily="PramukhRounded-Bold.otf"
                     FontSize="25"
+                    Format="dd/MM/yyyy"
                     HeightRequest="60"
-                    SelectedItem="{Binding Usuario.FechaNacimiento}"
                     WidthRequest="450" />
 
                 <Grid HorizontalOptions="FillAndExpand" WidthRequest="600">
@@ -523,7 +524,7 @@
                     FontFamily="PramukhRounded-Bold.otf"
                     FontSize="25"
                     HeightRequest="60"
-                    IsPassword="True"
+                    Text="{Binding CodigoRol}"
                     WidthRequest="450" />
 
                 <Grid HorizontalOptions="FillAndExpand" WidthRequest="600">
