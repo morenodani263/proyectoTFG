@@ -68,7 +68,7 @@ namespace UltimateMatch.ViewModels
                 .ShowPopupAsync(PopupErrores);
 
         }
-
+        
         [RelayCommand]
         public async Task RegistroUsuarioAsync()
         {
