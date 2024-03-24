@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="UltimateMatch.Views.Popups.PopupRegistroErrores"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:UltimateMatch.ViewModels"
+    x:DataType="viewmodels:RegisterViewModel"
+    BindingContext="{viewmodels:RegisterViewModel}">
+
+
+    <Grid ColumnDefinitions="620" RowDefinitions="650">
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            Grid.Column="1"
+            BackgroundColor="Gray"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+
+            <Image
+                Margin="0,10,10,0"
+                HeightRequest="40"
+                HorizontalOptions="End"
+                Source="cerrar_popup.png"
+                VerticalOptions="Start"
+                WidthRequest="80" />
+
+            <VerticalStackLayout BackgroundColor="White"                                
+                                 WidthRequest="580"
+                                 HeightRequest="550"
+                                 Margin="0,20,0,0">
+                <Label Margin="25,30,0,20"
+                       FontAttributes="Bold"
+                       FontFamily="PramukhRounded-Bold.otf"
+                       FontSize="50"
+                       HorizontalOptions="Start"
+                       Text="ERRORES"
+                       WidthRequest="100" />
+
+                <Label Margin="25,0,0,0"
+                       FontFamily="PramukhRounded-Bold.otf"
+                       FontSize="25"
+                       HorizontalOptions="Start"
+                       Text="{Binding MensajesError}"
+                       TextColor="Black" />
+            </VerticalStackLayout>
+
+            
+        </VerticalStackLayout>
+    </Grid>
+</toolkit:Popup>

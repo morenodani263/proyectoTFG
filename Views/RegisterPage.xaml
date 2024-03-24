@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UltimateMatch.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:UltimateMatch.ViewModels"
+    Title="RegisterPage"
+    x:DataType="viewmodels:RegisterViewModel"
+    BindingContext="{viewmodels:RegisterViewModel}">
+
+    <Grid ColumnDefinitions="*,900,*" RowDefinitions="*,650,*">
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="30,0,30,0"
+            BackgroundColor="LightGray"
+            HeightRequest="650"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding Paso1}"
+            StrokeThickness="5"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="600">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="70,0,0,0" />
+            </Border.StrokeShape>
+
+            <!--  PASO1  -->
+            <VerticalStackLayout BackgroundColor="WhiteSmoke">
+
+                <Label
+                    Margin="45,45,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="Super-Bloom.ttf"
+                    FontSize="50"
+                    Text="REGISTER"
+                    VerticalOptions="Start" />
+
+                <Label
+                    Margin="50,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="30"
+                    Text="Datos personales"
+                    VerticalOptions="Start" />
+
+                <!--  nombre  -->
+                <Label
+                    Margin="78,20,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Nombre"
+                    VerticalOptions="Start" />
+                <Entry
+                    x:Name="NombreEntry"
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.Nombre}"
+                    WidthRequest="450">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="TextStates">
+                            <VisualState Name="TextSinError">
+                                <VisualState.Setters>
+                                    <Setter Property="PlaceholderColor" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="TextError">
+                                <VisualState.Setters>
+                                    <Setter Property="PlaceholderColor" Value="Red" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Entry>
+                <!--  apellidos  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Apellidos"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.Apellidos}"
+                    WidthRequest="450" />
+                <!--  tfno  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Tfno"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.Tfno}"
+                    WidthRequest="450" />
+                <!--  fecha nacimiento  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Fecha nacimiento"
+                    VerticalOptions="Start" />
+
+                <Picker
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    SelectedItem="{Binding Usuario.FechaNacimiento}"
+                    WidthRequest="450" />
+
+                <Grid HorizontalOptions="FillAndExpand" WidthRequest="600">
+                    <Button
+                        Margin="40,20,0,0"
+                        Command="{Binding CambioPantallaCommand}"
+                        CommandParameter="back"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="35"
+                        HeightRequest="70"
+                        HorizontalOptions="Start"
+                        Text="Atras"
+                        WidthRequest="100" />
+                    <Label
+                        Margin="0,30,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="PramukhRounded-Bold.otf"
+                        FontSize="40"
+                        HorizontalOptions="Center"
+                        Text="1/4" />
+                    <Button
+                        Margin="0,20,40,0"
+                        Command="{Binding CambioPantallaCommand}"
+                        CommandParameter="next"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="35"
+                        HeightRequest="70"
+                        HorizontalOptions="End"
+                        Text="Siguiente"
+                        WidthRequest="100" />
+                </Grid>
+            </VerticalStackLayout>
+
+
+        </Border>
+
+
+        <!--  PASO2  -->
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="30,0,30,0"
+            BackgroundColor="LightGray"
+            HeightRequest="650"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding Paso2}"
+            StrokeThickness="5"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="600">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="70,0,0,0" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout BackgroundColor="WhiteSmoke">
+
+
+                <Label
+                    Margin="45,45,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="Super-Bloom.ttf"
+                    FontSize="50"
+                    Text="REGISTER"
+                    VerticalOptions="Start" />
+
+                <Label
+                    Margin="50,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="30"
+                    Text="Datos Cuenta"
+                    VerticalOptions="Start" />
+                <!--  nombre usuario  -->
+                <Label
+                    Margin="78,20,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Nombre usuario"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.NombreUsuario}"
+                    WidthRequest="450" />
+                <!--  correo  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Correo"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.Correo}"
+                    WidthRequest="450" />
+                <!--  contraseña  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Contraseña"
+                    VerticalOptions="Start" />
+
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    IsPassword="True"
+                    Text="{Binding Usuario.Password}"
+                    WidthRequest="450" />
+                <!--  confirmar contraseña  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Confirmar contraseña"
+                    VerticalOptions="Start" />
+
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    IsPassword="True"
+                    Text="{Binding ConfPasswd}"
+                    WidthRequest="450" />
+
+                <Grid HorizontalOptions="FillAndExpand" WidthRequest="600">
+
+                    <Button
+                        Margin="40,20,0,0"
+                        Command="{Binding CambioPantallaCommand}"
+                        CommandParameter="back"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="35"
+                        HeightRequest="70"
+                        HorizontalOptions="Start"
+                        Text="Atras"
+                        WidthRequest="100" />
+                    <Label
+                        Margin="0,30,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="PramukhRounded-Bold.otf"
+                        FontSize="40"
+                        HorizontalOptions="Center"
+                        Text="2/4" />
+                    <Button
+                        Margin="0,20,40,0"
+                        Command="{Binding CambioPantallaCommand}"
+                        CommandParameter="next"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="35"
+                        HeightRequest="70"
+                        HorizontalOptions="End"
+                        Text="Siguiente"
+                        WidthRequest="100" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+
+        <!--  PASO3  -->
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="30,0,30,0"
+            BackgroundColor="LightGray"
+            HeightRequest="650"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding Paso3}"
+            StrokeThickness="5"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="600">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="70,0,0,0" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout BackgroundColor="WhiteSmoke">
+
+
+                <Label
+                    Margin="45,45,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="Super-Bloom.ttf"
+                    FontSize="50"
+                    Text="REGISTER"
+                    VerticalOptions="Start" />
+
+                <Label
+                    Margin="50,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="30"
+                    Text="Dirección"
+                    VerticalOptions="Start" />
+                <!--  pais  -->
+                <Label
+                    Margin="78,20,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="País"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.Pais}"
+                    WidthRequest="450" />
+                <!--  provincia  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Provincia"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.Provincia}"
+                    WidthRequest="450" />
+                <!--  calle  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Calle"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.Calle}"
+                    WidthRequest="450" />
+                <!--  codigo postal  -->
+                <Label
+                    Margin="78,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Código Postal"
+                    VerticalOptions="Start" />
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    Text="{Binding Usuario.CP}"
+                    WidthRequest="450" />
+
+                <Grid HorizontalOptions="FillAndExpand" WidthRequest="600">
+
+                    <Button
+                        Margin="40,20,0,0"
+                        Command="{Binding CambioPantallaCommand}"
+                        CommandParameter="back"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="35"
+                        HeightRequest="70"
+                        HorizontalOptions="Start"
+                        Text="Atras"
+                        WidthRequest="100" />
+                    <Label
+                        Margin="0,30,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="PramukhRounded-Bold.otf"
+                        FontSize="40"
+                        HorizontalOptions="Center"
+                        Text="3/4" />
+                    <Button
+                        Margin="0,20,40,0"
+                        Command="{Binding CambioPantallaCommand}"
+                        CommandParameter="next"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="35"
+                        HeightRequest="70"
+                        HorizontalOptions="End"
+                        Text="Siguiente"
+                        WidthRequest="100" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        <!--  PASO4  -->
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="30,0,30,0"
+            BackgroundColor="LightGray"
+            HeightRequest="650"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding Paso4}"
+            StrokeThickness="5"
+            VerticalOptions="FillAndExpand"
+            WidthRequest="600">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="70,0,0,0" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout BackgroundColor="WhiteSmoke">
+
+
+                <Label
+                    Margin="45,45,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="Super-Bloom.ttf"
+                    FontSize="50"
+                    Text="REGISTER"
+                    VerticalOptions="Start" />
+
+                <Label
+                    Margin="50,0,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="30"
+                    Text="Datos Extra"
+                    VerticalOptions="Start" />
+
+                <!--  imagen  -->
+                <toolkit:AvatarView
+                    BorderColor="LightGray"
+                    BorderWidth="5"
+                    CornerRadius="20"
+                    HeightRequest="250"
+                    ImageSource="{Binding AvatarImage}"
+                    WidthRequest="250">
+                    <toolkit:AvatarView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LoadImageCommand}" NumberOfTapsRequired="1" />
+                    </toolkit:AvatarView.GestureRecognizers>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal" />
+                            <VisualState Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BorderColor" Value="Blue" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </toolkit:AvatarView>
+
+
+                <Label
+                    Margin="78,40,0,0"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    Text="Código Administrador"
+                    VerticalOptions="Start" />
+
+                <Entry
+                    Margin="5,0,0,0"
+                    Background="White"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HeightRequest="60"
+                    IsPassword="True"
+                    WidthRequest="450" />
+
+                <Grid HorizontalOptions="FillAndExpand" WidthRequest="600">
+
+                    <Button
+                        Margin="40,20,0,0"
+                        Command="{Binding CambioPantallaCommand}"
+                        CommandParameter="back"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="20"
+                        HeightRequest="70"
+                        HorizontalOptions="Start"
+                        Text="Atras"
+                        WidthRequest="130" />
+                    <Label
+                        Margin="0,30,0,0"
+                        FontAttributes="Bold"
+                        FontFamily="PramukhRounded-Bold.otf"
+                        FontSize="40"
+                        HorizontalOptions="Center"
+                        Text="4/4" />
+                    <Button
+                        Margin="0,20,40,0"
+                        Command="{Binding RegistroUsuarioCommand}"
+                        CommandParameter="next"
+                        FontAttributes="Bold"
+                        FontFamily="Super-Bloom.ttf"
+                        FontSize="20"
+                        HeightRequest="70"
+                        HorizontalOptions="End"
+                        Text="FINALIZAR"
+                        WidthRequest="130" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>
