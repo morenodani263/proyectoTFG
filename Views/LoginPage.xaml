@@ -3,9 +3,30 @@
     x:Class="UltimateMatch.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="LoginPage">
+    xmlns:converters="clr-namespace:UltimateMatch.Resources.Utils"
+    xmlns:viewmodels="clr-namespace:UltimateMatch.ViewModels"
+    Title="LoginPage"
+    x:DataType="viewmodels:LoginViewModel"
+    BindingContext="{viewmodels:LoginViewModel}">
+
+    <ContentPage.Resources>
+        <converters:Base64ToImageSourceConverter x:Key="Base64ToImageSourceConverter" />
+    </ContentPage.Resources>
 
     <Grid ColumnDefinitions="*,900,*" RowDefinitions="*,600,*">
+        <VerticalStackLayout
+            Grid.Row="0"
+            Grid.Column="0"
+            Background="AliceBlue"
+            HeightRequest="400"
+            WidthRequest="400">
+            <Image
+                HeightRequest="300"
+                HorizontalOptions="Center"
+                Source="{Binding Base64Image, Converter={StaticResource Base64ToImageSourceConverter}}"
+                WidthRequest="300" />
+
+        </VerticalStackLayout>
 
         <Border
             Grid.Row="1"
@@ -46,6 +67,7 @@
                     FontFamily="PramukhRounded-Bold.otf"
                     FontSize="25"
                     HeightRequest="60"
+                    Text="{Binding Usuario.NombreUsuario}"
                     WidthRequest="450" />
 
                 <Label
@@ -62,11 +84,13 @@
                     FontFamily="PramukhRounded-Bold.otf"
                     FontSize="25"
                     HeightRequest="60"
+                    Text="{Binding Usuario.Password}"
                     WidthRequest="450" />
 
 
                 <Button
                     Margin="0,20,0,0"
+                    Command="{Binding LoginCommand}"
                     FontAttributes="Bold"
                     FontFamily="Super-Bloom.ttf"
                     FontSize="35"

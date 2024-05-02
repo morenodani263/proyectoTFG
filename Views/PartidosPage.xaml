@@ -1,0 +1,713 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UltimateMatch.PartidosPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:UltimateMatch.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:UltimateMatch.ViewModels"
+    Title="PartidosPage"
+    x:DataType="viewmodels:PartidosViewModel"
+    BindingContext="{viewmodels:PartidosViewModel}">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding ObtenerPartidosFechaCommand}" EventName="Loaded" />
+    </ContentPage.Behaviors>
+
+
+    <Grid ColumnDefinitions="*, 550, 950, *" RowDefinitions="*,100,570,*">
+
+        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+            <toolkit:AvatarView
+                BorderColor="Black"
+                BorderWidth="3"
+                CornerRadius="10,10,10,10"
+                HeightRequest="100"
+                HorizontalOptions="Start"
+                ImageSource="icono_persona.png"
+                StrokeThickness="3"
+                VerticalOptions="Start"
+                WidthRequest="100" />
+        </VerticalStackLayout>
+
+        <Border
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="0,0,10,10"
+            Style="{DynamicResource BorderPartidosStyle}">
+            <VerticalStackLayout
+                Grid.Row="2"
+                Grid.Column="1"
+                Background="Beige"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid ColumnDefinitions="*" RowDefinitions="80, *">
+
+                    <HorizontalStackLayout Grid.Row="0">
+                        <Button
+                            Command="{Binding FechaEleccionRapidaCommand}"
+                            CommandParameter="ayer"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="AYER" />
+                        <Button
+                            Command="{Binding FechaEleccionRapidaCommand}"
+                            CommandParameter="hoy"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="HOY" />
+                        <Button
+                            Command="{Binding FechaEleccionRapidaCommand}"
+                            CommandParameter="mañana"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="MAÑANA" />
+                        <DatePicker
+                            x:Name="datePicker"
+                            Margin="5"
+                            Background="SteelBlue"
+                            FontAttributes="Bold"
+                            FontFamily="PramukhRounded-Bold.otf"
+                            FontSize="25"
+                            Format="dd/MM/yyyy"
+                            HeightRequest="50"
+                            TextColor="White"
+                            WidthRequest="120">
+                            <DatePicker.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    Command="{Binding FechaEleccionCommand}"
+                                    CommandParameter="{Binding Path=Date, Source={x:Reference datePicker}}"
+                                    EventName="DateSelected" />
+                            </DatePicker.Behaviors>
+                        </DatePicker>
+                    </HorizontalStackLayout>
+
+
+                    <VerticalStackLayout
+                        Grid.Row="1"
+                        Background="Beige"
+                        HeightRequest="500"
+                        WidthRequest="400">
+                        <!--  LISTADO DE PARTIDOS  -->
+
+                        <CollectionView
+                            ItemsSource="{Binding ListaDetallePartido}"
+                            SelectedItem="{Binding DetallePartidoModel}"
+                            SelectionChangedCommand="{Binding ObtenerPartidoCommand}"
+                            SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:DetallePartidoModel">
+                                    <Border
+                                        x:Name="listaPartidos"
+                                        Background="AliceBlue"
+                                        Stroke="Black"
+                                        StrokeThickness="5"
+                                        Style="{DynamicResource BorderStyle}">
+                                        <VerticalStackLayout>
+                                            <!--<VerticalStackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    x:DataType="viewmodels:PartidosViewModel"
+                                                    Command="{Binding}"
+                                                    NumberOfTapsRequired="2" />
+                                            </VerticalStackLayout.GestureRecognizers>-->
+
+                                            <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*">
+                                                <Image
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    HeightRequest="100"
+                                                    Source="icono_persona.png"
+                                                    WidthRequest="100" />
+
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    FontSize="28"
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="{Binding NombreEquipoLocal}" />
+
+                                                <HorizontalStackLayout Grid.Row="0" Grid.Column="1">
+                                                    <Label
+                                                        Margin="50,5,5,5"
+                                                        HorizontalOptions="Center"
+                                                        Style="{DynamicResource TextNormalStyle}"
+                                                        Text="{Binding GolesEquipoLocal}"
+                                                        VerticalOptions="End" />
+                                                    <Label
+                                                        HorizontalOptions="Center"
+                                                        Style="{DynamicResource TextNormalStyle}"
+                                                        Text="-"
+                                                        VerticalOptions="End" />
+                                                    <Label
+                                                        Margin="5,5,50,5"
+                                                        HorizontalOptions="Center"
+                                                        Style="{DynamicResource TextNormalStyle}"
+                                                        Text="{Binding GolesEquipoVisitante}"
+                                                        VerticalOptions="End" />
+                                                </HorizontalStackLayout>
+
+                                                <Image
+                                                    Grid.Row="0"
+                                                    Grid.Column="2"
+                                                    HeightRequest="120"
+                                                    Source="{Binding GolesEquipoVisitante}"
+                                                    WidthRequest="120" />
+
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="2"
+                                                    FontSize="28"
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="{Binding NombreEquipoVisitante}" />
+                                            </Grid>
+
+                                            <!--<HorizontalStackLayout HorizontalOptions="Center">
+                                                <VerticalStackLayout>
+                                                    <Image
+                                                        HeightRequest="100"
+                                                        Source="icono_persona.png"
+                                                        WidthRequest="100" />
+                                                    <Label
+                                                        FontSize="28"
+                                                        Style="{DynamicResource TextNormalStyle}"
+                                                        Text="{Binding NombreEquipoLocal}" />
+                                                </VerticalStackLayout>
+
+                                                <Label
+                                                    Margin="50,5,5,5"
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="{Binding GolesEquipoLocal}"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="-"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Margin="5,5,50,5"
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="{Binding GolesEquipoVisitante}"
+                                                    VerticalOptions="Center" />
+                                                <VerticalStackLayout>
+                                                    <Image
+                                                        HeightRequest="120"
+                                                        Source="{Binding GolesEquipoVisitante}"
+                                                        WidthRequest="120" />
+                                                    <Label
+                                                        FontSize="28"
+                                                        Style="{DynamicResource TextNormalStyle}"
+                                                        Text="{Binding NombreEquipoVisitante}" />
+                                                </VerticalStackLayout>
+
+
+                                            </HorizontalStackLayout>-->
+
+
+                                        </VerticalStackLayout>
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup Name="CommonStates">
+                                                <VisualState Name="Normal" />
+                                                <VisualState Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="Background" Value="LightGray" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Border>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+
+                    </VerticalStackLayout>
+
+
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+
+        <VerticalStackLayout Grid.Row="1" Grid.Column="2">
+            <HorizontalStackLayout Margin="80,0,0,0">
+                <Button
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="COMPETICIONES"
+                    WidthRequest="160" />
+                <Button
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="JUGADORES"
+                    WidthRequest="160" />
+                <Button
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="GESTIÓN"
+                    WidthRequest="160" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!--  elegir plantilla/clasificacion  -->
+        <Border
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="0,0,10,10"
+            BackgroundColor="Beige"
+            Stroke="Black"
+            StrokeThickness="5"
+            Style="{DynamicResource BorderStyle}">
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="100,150,*">
+                <HorizontalStackLayout
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    HeightRequest="100"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="Start">
+                    <Button
+                        Command="{Binding CambiarModoCommand}"
+                        CommandParameter="plantilla"
+                        Style="{DynamicResource ButtonsPartidosFecha}"
+                        Text="PLANTILLA"
+                        WidthRequest="180" />
+                    <Button
+                        Command="{Binding CambiarModoCommand}"
+                        CommandParameter="clasificacion"
+                        Style="{DynamicResource ButtonsPartidosFecha}"
+                        Text="CLASIFICACIÓN"
+                        WidthRequest="180" />
+                </HorizontalStackLayout>
+
+                <!--  modo plantilla  -->
+
+                <!--  equipo1  -->
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20,10,10,10"
+                    IsVisible="{Binding IsModoPlantilla}"
+                    Style="{DynamicResource BorderPartidosStyle}">
+                    <HorizontalStackLayout>
+                        <Image
+                            Margin="10,0,20,0"
+                            HeightRequest="100"
+                            Source="icono_persona.png"
+                            WidthRequest="100" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label
+                                Margin="0"
+                                Style="{DynamicResource TextNormalStyle}"
+                                Text="Nombre equipo" />
+                            <Label
+                                Margin="0"
+                                FontSize="30"
+                                Style="{DynamicResource TextNormalStyle}"
+                                Text="Entrenador" />
+
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <CollectionView
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    IsVisible="{Binding IsModoPlantilla}"
+                    ItemsSource="{Binding ListaJugadoresEq1}"
+                    ItemsUpdatingScrollMode="KeepLastItemInView"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:JugadoresModel">
+                            <Border
+                                x:Name="listaJugadores"
+                                Margin="20,5,10,5"
+                                Background="AliceBlue"
+                                Stroke="Black"
+                                StrokeThickness="5"
+                                Style="{DynamicResource BorderStyle}">
+                                <VerticalStackLayout>
+
+                                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="80,50">
+                                        <!--  imagen jugador  -->
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="0"
+                                            HeightRequest="130"
+                                            Source="icono_persona.png"
+                                            WidthRequest="130" />
+
+                                        <!--  nombre, apellidos, posicion  -->
+                                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                                            <Label
+                                                Margin="0,10,0,0"
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding Nombre}" />
+                                            <Label
+                                                Margin="0"
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding Apellidos}" />
+                                        </VerticalStackLayout>
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            FontSize="28"
+                                            HorizontalOptions="Center"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding Posicion}" />
+
+                                        <!--  escudo y nombre equipo  -->
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Margin="0,10,0,0"
+                                            HeightRequest="100"
+                                            Source="icono_persona.png"
+                                            WidthRequest="100" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            FontSize="28"
+                                            HorizontalOptions="Center"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding EquiposModel.Nombre}" />
+                                    </Grid>
+
+                                </VerticalStackLayout>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="Background" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  equipo2  -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="10,10,20,0"
+                    IsVisible="{Binding IsModoPlantilla}"
+                    Style="{DynamicResource BorderPartidosStyle}">
+
+                    <HorizontalStackLayout>
+                        <Image
+                            Margin="10,0,20,0"
+                            HeightRequest="100"
+                            Source="icono_persona.png"
+                            WidthRequest="100" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label
+                                Margin="0"
+                                Style="{DynamicResource TextNormalStyle}"
+                                Text="Nombre equipo" />
+                            <Label
+                                Margin="0"
+                                FontSize="30"
+                                Style="{DynamicResource TextNormalStyle}"
+                                Text="Entrenador" />
+
+                        </VerticalStackLayout>
+
+                    </HorizontalStackLayout>
+
+                </Border>
+
+                <CollectionView
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    IsVisible="{Binding IsModoPlantilla}"
+                    ItemsSource="{Binding ListaJugadoresEq2}"
+                    ItemsUpdatingScrollMode="KeepLastItemInView"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:JugadoresModel">
+                            <Border
+                                x:Name="listaJugadores"
+                                Margin="10"
+                                Background="AliceBlue"
+                                Stroke="Black"
+                                StrokeThickness="5"
+                                Style="{DynamicResource BorderStyle}">
+                                <VerticalStackLayout>
+
+                                    <!--<Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*">
+                                    -->
+                                    <!--  imagen jugador  -->
+                                    <!--
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="0"
+                                            HeightRequest="130"
+                                            Source="icono_persona.png"
+                                            WidthRequest="130" />
+
+                                    -->
+                                    <!--  nombre, apellidos, posicion  -->
+                                    <!--
+                                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                                            <Label
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding Nombre}" />
+                                            <Label
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding Apellidos}" />
+                                        </VerticalStackLayout>
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            FontSize="28"
+                                            HorizontalOptions="Center"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding Posicion}" />
+
+                                    -->
+                                    <!--  escudo y nombre equipo  -->
+                                    <!--
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            HeightRequest="100"
+                                            Source="icono_persona.png"
+                                            WidthRequest="100" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            FontSize="28"
+                                            HorizontalOptions="Center"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding EquiposModel.Nombre}" />
+                                    </Grid>-->
+
+                                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="80,50">
+                                        <!--  imagen jugador  -->
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="0"
+                                            HeightRequest="130"
+                                            Source="icono_persona.png"
+                                            WidthRequest="130" />
+
+                                        <!--  nombre, apellidos, posicion  -->
+                                        <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                                            <Label
+                                                Margin="0,10,0,0"
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding Nombre}" />
+                                            <Label
+                                                Margin="0"
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding Apellidos}" />
+                                        </VerticalStackLayout>
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            FontSize="28"
+                                            HorizontalOptions="Center"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding Posicion}" />
+
+                                        <!--  escudo y nombre equipo  -->
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Margin="0,10,0,0"
+                                            HeightRequest="100"
+                                            Source="icono_persona.png"
+                                            WidthRequest="100" />
+
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            FontSize="28"
+                                            HorizontalOptions="Center"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding EquiposModel.Nombre}" />
+                                    </Grid>
+
+                                </VerticalStackLayout>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="Background" Value="LightGray" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  MODO CLASIFICACION  -->
+                <Border
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="20,0,20,10"
+                    BackgroundColor="Black"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding IsModoPlantilla, Converter={toolkit:InvertedBoolConverter}}"
+                    Stroke="SteelBlue"
+                    Style="{DynamicResource BorderPartidosStyle}"
+                    VerticalOptions="FillAndExpand">
+
+                    <Grid ColumnDefinitions="120,400,*,*,*" RowDefinitions="100,60,*">
+                        <!--  ENCABEZADO CLASIFICACION  -->
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="10,0,0,0"
+                            HeightRequest="100"
+                            Source="icono_persona.png"
+                            WidthRequest="100" />
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="50,0,0,0"
+                            FontSize="90"
+                            HorizontalOptions="Start"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="{Binding NombreCompeticion}"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+                        <!--  NOMBRE COLUMNAS  -->
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0"
+                            FontSize="50"
+                            HorizontalOptions="Center"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="#"
+                            TextColor="White"
+                            VerticalOptions="Start" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0"
+                            FontSize="50"
+                            HorizontalOptions="Center"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="EQUIPO"
+                            TextColor="White"
+                            VerticalOptions="Start" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Margin="0"
+                            FontSize="50"
+                            HorizontalOptions="Center"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="GF"
+                            TextColor="White"
+                            VerticalOptions="Start" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Margin="0"
+                            FontSize="50"
+                            HorizontalOptions="Center"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="GC"
+                            TextColor="White"
+                            VerticalOptions="Start" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="4"
+                            Margin="0"
+                            FontSize="50"
+                            HorizontalOptions="Center"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="PTS"
+                            TextColor="White"
+                            VerticalOptions="Start" />
+
+                        <!--  LISTA CLASIFICACION  -->
+                        <CollectionView
+                            Margin="0, 0, 0, 0"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="5"
+                            ItemsSource="{Binding ListaClasificacion}"
+                            ItemsUpdatingScrollMode="KeepLastItemInView"
+                            SelectionMode="Single">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:ClasificacionDTOModel">
+                                    <Border
+                                        Margin="10"
+                                        Background="AliceBlue"
+                                        Stroke="Black"
+                                        StrokeThickness="5"
+                                        Style="{DynamicResource BorderStyle}">
+                                        <Grid ColumnDefinitions="260,290,125,110,*" RowDefinitions="60">
+                                            <Label
+                                                Grid.Column="1"
+                                                Style="{DynamicResource Key=TextNormalStyle}"
+                                                Text="{Binding NombreEquipo}" />
+                                            <Label
+                                                Grid.Column="2"
+                                                Style="{DynamicResource Key=TextNormalStyle}"
+                                                Text="{Binding GolesFavor}" />
+                                            <Label
+                                                Grid.Column="3"
+                                                Style="{DynamicResource Key=TextNormalStyle}"
+                                                Text="{Binding GolesContra}" />
+                                            <Label
+                                                Grid.Column="4"
+                                                Style="{DynamicResource Key=TextNormalStyle}"
+                                                Text="{Binding Puntos}" />
+                                        </Grid>
+                                    </Border>
+
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

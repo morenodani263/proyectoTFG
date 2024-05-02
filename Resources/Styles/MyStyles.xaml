@@ -5,16 +5,47 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style x:Key="BorderStyle" TargetType="Border">
-        <Setter Property="BackgroundColor"
-                Value="LightGray" />
+        <Setter Property="BackgroundColor" Value="LightGray" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled" />
-                    <VisualState x:Name="PointerOver">
-                        
-                    </VisualState>
+                    <VisualState x:Name="PointerOver" />
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BorderPartidosStyle" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="AliceBlue" />
+        <Setter Property="Stroke" Value="Black" />
+        <Setter Property="StrokeThickness" Value="5" />
+    </Style>
+
+
+    <Style x:Key="TextNormalStyle" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="35" />
+        <Setter Property="FontFamily" Value="PramukhRounded-Bold.otf" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="TextColor" Value="Black" />
+    </Style>
+
+    <Style x:Key="ButtonsPartidosFecha" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="SteelBlue" />
+        <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontFamily" Value="PramukhRounded-Bold.otf" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled" />
+                    <VisualState x:Name="PointerOver" />
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>

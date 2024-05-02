@@ -1,10 +1,10 @@
 ﻿namespace UltimateMatch
 {
-    public partial class MainPage : ContentPage
+    public partial class PartidosPage : ContentPage
     {
      
 
-        public MainPage()
+        public PartidosPage()
         {
             InitializeComponent();
         }

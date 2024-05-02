@@ -9,20 +9,17 @@
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
- 
+
         <Tab Title="LOGIN">
-            <ShellContent ContentTemplate="{DataTemplate views:LoginPage}"
-                          Route="LoginPage" />
+            <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="LoginPage" />
         </Tab>
-        
+
         <Tab Title="PRINCIPAL">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"
-                          Route="MainPage" />
+            <ShellContent ContentTemplate="{DataTemplate local:PartidosPage}" Route="PartidosPage" />
         </Tab>
 
         <Tab Title="REGISTRO">
-            <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}"
-                          Route="RegisterPage" />
+            <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" Route="RegisterPage" />
         </Tab>
     </TabBar>
 

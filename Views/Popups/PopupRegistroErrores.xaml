@@ -26,27 +26,30 @@
                 VerticalOptions="Start"
                 WidthRequest="80" />
 
-            <VerticalStackLayout BackgroundColor="White"                                
-                                 WidthRequest="580"
-                                 HeightRequest="550"
-                                 Margin="0,20,0,0">
-                <Label Margin="25,30,0,20"
-                       FontAttributes="Bold"
-                       FontFamily="PramukhRounded-Bold.otf"
-                       FontSize="50"
-                       HorizontalOptions="Start"
-                       Text="ERRORES"
-                       WidthRequest="100" />
+            <VerticalStackLayout
+                Margin="0,20,0,0"
+                BackgroundColor="White"
+                HeightRequest="550"
+                WidthRequest="580">
+                <Label
+                    Margin="25,30,0,20"
+                    FontAttributes="Bold"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="50"
+                    HorizontalOptions="Start"
+                    Text="ERRORES"
+                    WidthRequest="100" />
 
-                <Label Margin="25,0,0,0"
-                       FontFamily="PramukhRounded-Bold.otf"
-                       FontSize="25"
-                       HorizontalOptions="Start"
-                       Text="{Binding MensajesError}"
-                       TextColor="Black" />
+                <Label
+                    Margin="25,0,0,0"
+                    FontFamily="PramukhRounded-Bold.otf"
+                    FontSize="25"
+                    HorizontalOptions="Start"
+                    Text="{Binding MensajesError}"
+                    TextColor="Black" />
             </VerticalStackLayout>
 
-            
+
         </VerticalStackLayout>
     </Grid>
 </toolkit:Popup>

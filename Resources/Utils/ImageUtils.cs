@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace UltimateMatch.Resources.Utils
 {
@@ -49,7 +45,24 @@ namespace UltimateMatch.Resources.Utils
             return null;
         }
 
+        public static IImageSource FromBase64String(string base64String)
+        {
+            if (string.IsNullOrEmpty(base64String))
+                return null;
 
+            try
+            {
+                byte[] imageBytes = Convert.FromBase64String(base64String);
+                Stream stream = new MemoryStream(imageBytes);
+                return ImageSource.FromStream(() => stream);
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier excepción que pueda surgir durante la conversión
+                Console.WriteLine($"Error al convertir la cadena base64 en imagen: {ex.Message}");
+                return null;
+            }
+        }
 
     }
 

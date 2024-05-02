@@ -62,6 +62,7 @@
 	  <None Remove="Resources\Fonts\Super-Bloom.ttf" />
 	  <None Remove="Resources\Fonts\Tanker-Regular.otf" />
 	  <None Remove="Resources\Images\cerrar_popup.png" />
+	  <None Remove="Resources\Images\icono_persona.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,6 +72,12 @@
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\PartidosPage.xaml.cs">
+	    <DependentUpon>PartidosPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
