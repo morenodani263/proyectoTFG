@@ -135,8 +135,29 @@
         
         <!--TABLA DATOS JUGADOR-->
 
-        <Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="5" Background="AliceBlue" Style="{DynamicResource BorderPartidosStyle}">
-            <Grid ColumnDefinitions="120, *" RowDefinitions="120,*,*,*,*,*,*">
+        <Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="5" Background="DodgerBlue" Style="{DynamicResource BorderPartidosStyle}">
+            <Grid ColumnDefinitions="180, *" RowDefinitions="120,*,*,*,*,*,*">
+                <!--NOMBRE-->
+                <Label Grid.Column="0" Grid.Row="1" Style="{DynamicResource TextNormalStyle}" 
+                       FontSize="18" Text="NOMBRE:" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Entry Grid.Column="1" Grid.Row="1" WidthRequest="350" HeightRequest="40" Background="White" HorizontalOptions="Start"/>
+
+                <!--APELLIDOS-->
+                <Label Grid.Column="0" Grid.Row="2" Style="{DynamicResource TextNormalStyle}" 
+                FontSize="18" Text="APELLIDOS:" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Entry Grid.Column="1" Grid.Row="2" WidthRequest="350" HeightRequest="40" Background="White" HorizontalOptions="Start"/>
+                <!--EDAD-->
+                <Label Grid.Column="0" Grid.Row="3" Style="{DynamicResource TextNormalStyle}" 
+                FontSize="18" Text="EDAD:" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Entry Grid.Column="1" Grid.Row="3" WidthRequest="350" HeightRequest="40" Background="White" HorizontalOptions="Start"/>
+                <!--NACIONALIDAD-->
+                <Label Grid.Column="0" Grid.Row="4" Style="{DynamicResource TextNormalStyle}" 
+                FontSize="18" Text="NACIONALIDAD:" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Entry Grid.Column="1" Grid.Row="4" WidthRequest="350" HeightRequest="40" Background="White" HorizontalOptions="Start"/>
+                <!--POSICION-->
+                <Label Grid.Column="0" Grid.Row="5" Style="{DynamicResource TextNormalStyle}" 
+                FontSize="18" Text="POSICION:" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Entry Grid.Column="1" Grid.Row="5" WidthRequest="350" HeightRequest="40" Background="White" HorizontalOptions="Start"/>
                 
             </Grid>
         </Border>
