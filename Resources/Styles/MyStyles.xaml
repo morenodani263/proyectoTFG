@@ -38,7 +38,7 @@
         <Setter Property="HeightRequest" Value="50" />
         <Setter Property="Margin" Value="10" />
         <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="FontFamily" Value="PramukhRounded-Bold.otf" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>

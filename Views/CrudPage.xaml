@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UltimateMatch.Views.CrudPage"
+             xmlns:viewmodels="clr-namespace:UltimateMatch.ViewModels"
+             xmlns:models="clr-namespace:UltimateMatch.Models"
+             x:DataType="viewmodels:CrudViewModel"
+             BindingContext="{viewmodels:CrudViewModel}"
+             Title="CrudPage">
+    <Grid ColumnDefinitions="20,400,400,600" RowDefinitions="20,100,60,70,50,250,400" BackgroundColor="Beige">
+        
+        <!--CRUD JUGADORES-->
+        <Border Style="{DynamicResource BorderPartidosStyle}" Grid.Column="1" Grid.Row="1">
+            <VerticalStackLayout  BackgroundColor="OrangeRed">
+                <Label Text="CRUD JUGADORES" TextColor="White" Style="{DynamicResource TextNormalStyle}"/>
+            </VerticalStackLayout>
+        </Border>
+        <!--CREAR JUGADOR-->
+
+        <Border Style="{DynamicResource BorderPartidosStyle}" Grid.Column="1" Grid.Row="2" >
+            <VerticalStackLayout  BackgroundColor="Black">
+                <Label Text="CREAR JUGADOR:" TextColor="White" Style="{DynamicResource TextNormalStyle}"/>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Style="{DynamicResource BorderPartidosStyle}" Grid.Column="1" Grid.Row="3">
+            <VerticalStackLayout  BackgroundColor="DarkBlue">
+                <Button Text="CREAR JUGADOR" WidthRequest="250" HeightRequest="40" Background="DarkOrange" Style="{DynamicResource ButtonsPartidosFecha}"/>
+            </VerticalStackLayout>
+        </Border>
+        <!--BUSQUEDA JUGADOR-->
+        
+        <Border Style="{DynamicResource BorderPartidosStyle}" Grid.Column="1" Grid.Row="4">
+            <VerticalStackLayout  BackgroundColor="Gray">
+                <Label Text="BUSQUEDA POR:" TextColor="White" Style="{DynamicResource TextNormalStyle}"/>
+            </VerticalStackLayout>
+        </Border>
+       
+        <Border Style="{DynamicResource BorderPartidosStyle}" Grid.Column="1" Grid.Row="5">
+            
+            <VerticalStackLayout  BackgroundColor="DarkBlue">
+                <!--nombre, apellidos-->
+                <Label Text="NOMBRE/APELLIDOS" TextColor="White" Style="{DynamicResource TextNormalStyle}"/>
+                <SearchBar WidthRequest="350" HeightRequest="40" BackgroundColor="AliceBlue"/>
+                <!--equipo-->
+                <Label Text="EQUIPO" TextColor="White" Style="{DynamicResource TextNormalStyle}"/>
+                <SearchBar WidthRequest="350" HeightRequest="40" BackgroundColor="AliceBlue"/>
+            </VerticalStackLayout>
+        </Border>
+        
+        <!--listado de jugadores-->
+        <CollectionView
+        Grid.Row="1"
+        Grid.RowSpan="5"
+        Grid.Column="2"
+        Margin="0"
+        ItemsSource="{Binding ListadoJugadores}"
+        ItemsUpdatingScrollMode="KeepLastItemInView"
+        SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:JugadoresModel">
+                    <Border
+                x:Name="listaJugadores"
+                Margin="10"
+                Background="DodgerBlue"
+                Stroke="Black"
+                StrokeThickness="5"
+                Style="{DynamicResource BorderStyle}">
+
+                        <VerticalStackLayout>
+                            <Grid ColumnDefinitions="140,350" RowDefinitions="70,60,10">
+                                <!--  imagen jugador  -->
+                                <Image
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            HeightRequest="130"
+                            Source="icono_persona.png"
+                            WidthRequest="130" 
+                            Margin="0"/>
+
+                                <!--  nombre, apellidos, posicion  -->
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="1" Margin="0" VerticalOptions="End" >
+                                    <HorizontalStackLayout VerticalOptions="End" >
+                                        <Label
+                                        Margin="0,10,0,0"
+                                        FontSize="24"                                     
+                                        Style="{DynamicResource TextNormalStyle}"
+                                        Text="{Binding Nombre}" />
+
+                                        <Label
+                                        Margin="5,10,0,0"
+                                        FontSize="24"                                      
+                                        Style="{DynamicResource TextNormalStyle}"
+                                        Text="{Binding Apellidos}" />
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+
+                                <!--boton editar-->
+                                <HorizontalStackLayout Grid.Row="1"
+                                        Grid.Column="1">
+
+                                    <Button WidthRequest="110"
+                                    Margin="5,0,0,0"
+                                    HeightRequest="40"
+                                    Text="EDITAR" BackgroundColor="Green" Style="{DynamicResource ButtonsPartidosFecha}"
+                                    FontSize="16"/>
+                                    <Button WidthRequest="110"
+                                    Margin="5, 0 , 0, 0"
+                                    HeightRequest="40"
+                                    Text="ELIMINAR" BackgroundColor="Red" Style="{DynamicResource ButtonsPartidosFecha}"
+                                    FontSize="16"/>
+                                </HorizontalStackLayout>
+                                
+                            </Grid>
+
+                        </VerticalStackLayout>
+                        
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <!--TABLA DATOS JUGADOR-->
+
+        <Border Grid.Column="3" Grid.Row="1" Grid.RowSpan="5" Background="AliceBlue" Style="{DynamicResource BorderPartidosStyle}">
+            <Grid ColumnDefinitions="120, *" RowDefinitions="120,*,*,*,*,*,*">
+                
+            </Grid>
+        </Border>
+
+    </Grid>
+</ContentPage>

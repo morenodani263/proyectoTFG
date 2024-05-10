@@ -14,7 +14,7 @@
     </ContentPage.Resources>
 
     <Grid ColumnDefinitions="*,900,*" RowDefinitions="*,600,*">
-        <VerticalStackLayout
+        <!--<VerticalStackLayout
             Grid.Row="0"
             Grid.Column="0"
             Background="AliceBlue"
@@ -26,7 +26,7 @@
                 Source="{Binding Base64Image, Converter={StaticResource Base64ToImageSourceConverter}}"
                 WidthRequest="300" />
 
-        </VerticalStackLayout>
+        </VerticalStackLayout>-->
 
         <Border
             Grid.Row="1"

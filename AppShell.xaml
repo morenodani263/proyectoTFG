@@ -21,6 +21,14 @@
         <Tab Title="REGISTRO">
             <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" Route="RegisterPage" />
         </Tab>
+
+        <Tab Title="JUGADORES">
+            <ShellContent ContentTemplate="{DataTemplate views:JugadoresPage}" Route="JugadoresPage" />
+        </Tab>
+
+        <Tab Title="CRUD">
+            <ShellContent ContentTemplate="{DataTemplate views:CrudPage}" Route="JugadoresPage" />
+        </Tab>
     </TabBar>
 
 
