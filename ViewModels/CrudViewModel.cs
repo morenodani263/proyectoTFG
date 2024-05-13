@@ -21,12 +21,16 @@ namespace UltimateMatch.ViewModels
         private bool isModoCompeticionEnabled;
         [ObservableProperty]
         private bool isModoEquipoEnabled;
+
+        [ObservableProperty]
+        private bool isModoGestion;
         public CrudViewModel() {
             ListadoJugadores = new ObservableCollection<JugadoresModel>();
             RellenoListado();
-            isModoJugadorEnabled = true;
-            isModoCompeticionEnabled = false;
-            isModoEquipoEnabled = false;
+            IsModoJugadorEnabled = true;
+            IsModoCompeticionEnabled = false;
+            IsModoEquipoEnabled = false;
+            IsModoGestion = false;
         }
         [RelayCommand]
         public void CambiarModo(string modo)
@@ -50,6 +54,12 @@ namespace UltimateMatch.ViewModels
                 IsModoJugadorEnabled = false;
             }
             
+        }
+
+        [RelayCommand]
+        public void CambiarModoGestion()
+        {
+            IsModoGestion = !IsModoGestion;
         }
 
         public void RellenoListado()
