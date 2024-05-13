@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,16 +10,47 @@ using UltimateMatch.Models;
 
 namespace UltimateMatch.ViewModels
 {
-    //kbkbu
     internal partial class CrudViewModel: ObservableObject
     {
         [ObservableProperty]
         private ObservableCollection<JugadoresModel> listadoJugadores;
 
+        [ObservableProperty]
+        private bool isModoJugadorEnabled;
+        [ObservableProperty]
+        private bool isModoCompeticionEnabled;
+        [ObservableProperty]
+        private bool isModoEquipoEnabled;
         public CrudViewModel() {
             ListadoJugadores = new ObservableCollection<JugadoresModel>();
             RellenoListado();
-        }  
+            isModoJugadorEnabled = true;
+            isModoCompeticionEnabled = false;
+            isModoEquipoEnabled = false;
+        }
+        [RelayCommand]
+        public void CambiarModo(string modo)
+        {
+            if(modo == "jugadores")
+            { 
+                IsModoJugadorEnabled = true ;
+                IsModoCompeticionEnabled = false;
+                IsModoEquipoEnabled = false;
+            }
+            else if(modo == "competicion")
+            {
+                IsModoCompeticionEnabled= true ;
+                IsModoJugadorEnabled = false;
+                IsModoEquipoEnabled = false;
+            }
+            else if (modo == "equipo")
+            {
+                IsModoEquipoEnabled= true ;
+                IsModoCompeticionEnabled = false;
+                IsModoJugadorEnabled = false;
+            }
+            
+        }
 
         public void RellenoListado()
         {
