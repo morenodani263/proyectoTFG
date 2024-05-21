@@ -444,11 +444,28 @@
                         Text="NOMBRE COMPETICION"
                         TextColor="White" />
 
-                    <SearchBar
+                    <Entry
+                        x:Name="tx_entry"
+                        Background="White"
+                        FontSize="22"
+                        HeightRequest="40"
+                        Style="{DynamicResource TextNormalStyle}"
+                        TextColor="Black"
+                        WidthRequest="350" />
+
+                    <Button
+                        Background="Orange"
+                        Command="{Binding ObtenerCompeticionesPorNombreCommand}"
+                        CommandParameter="{Binding Source={x:Reference tx_entry}, Path=Text}"
+                        HeightRequest="40"
+                        Style="{DynamicResource ButtonsPartidosFecha}"
+                        Text="FILTRAR"
+                        WidthRequest="150" />
+                    <!--<SearchBar
                         x:Name="tx_filtro"
                         BackgroundColor="AliceBlue"
                         HeightRequest="40"
-                        IsTextPredictionEnabled="True"
+                        IsTextPredictionEnabled="False"
                         WidthRequest="350">
                         <SearchBar.Behaviors>
                             <toolkit:EventToCommandBehavior
@@ -456,25 +473,63 @@
                                 CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
                                 EventName="TextChanged" />
                         </SearchBar.Behaviors>
-                    </SearchBar>
+                    </SearchBar>-->
 
                 </VerticalStackLayout>
             </Border>
 
             <!--  LISTADO COMPETICIONES  -->
-            <CollectionView
+
+            <HorizontalStackLayout
                 Grid.Row="2"
-                Grid.RowSpan="5"
+                Grid.Column="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <!--<Button
+                    Margin="5"
+                    BackgroundColor="DarkOrange"
+                    Command="{Binding BindingContext.ObtenerEquiposCompeticionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                    FontSize="18"
+                    HeightRequest="50"
+                    IsEnabled="{Binding BotonesActivos}"
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="PARTIDO"
+                    WidthRequest="110" />-->
+                <Button
+                    Margin="5"
+                    BackgroundColor="DarkOrange"
+                    Command="{Binding CambiarModoPartidoCommand}"
+                    FontSize="18"
+                    HeightRequest="50"
+                    IsEnabled="{Binding BotonesActivos}"
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="PARTIDO"
+                    WidthRequest="110" />
+                <Button
+                    Margin="5"
+                    BackgroundColor="Green"
+                    FontSize="18"
+                    HeightRequest="50"
+                    IsEnabled="{Binding BotonesActivos}"
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="COMPETICION"
+                    WidthRequest="110" />
+
+            </HorizontalStackLayout>
+
+            <CollectionView
+                Grid.Row="3"
+                Grid.RowSpan="4"
                 Grid.Column="2"
                 Margin="0"
+                IsVisible="true"
                 ItemsSource="{Binding ListaCompeticiones}"
                 ItemsUpdatingScrollMode="KeepLastItemInView"
                 SelectedItem="{Binding CompeticionModel}"
                 SelectionMode="Single">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:JugadoresModel">
+                    <DataTemplate x:DataType="models:CompeticionModel">
                         <Border
-                            x:Name="listaJugadores"
                             Margin="10"
                             Background="DodgerBlue"
                             Stroke="Black"
@@ -519,71 +574,6 @@
                                         x:DataType="viewmodels:CrudViewModel"
                                         VerticalOptions="Center">
 
-                                        <!--  BOTONES MODO GESTION  -->
-                                        <Button
-                                            Margin="5"
-                                            BackgroundColor="DarkOrange"
-                                            Command="{Binding BindingContext.ObtenerEquiposCompeticionCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                            FontSize="18"
-                                            HeightRequest="50"
-                                            IsVisible="{Binding IsModoGestion}"
-                                            Style="{DynamicResource ButtonsPartidosFecha}"
-                                            Text="AÑADIR PARTIDO"
-                                            WidthRequest="110" />
-
-                                        <Button
-                                            Margin="5"
-                                            BackgroundColor="Green"
-                                            FontSize="18"
-                                            HeightRequest="50"
-                                            IsVisible="{Binding IsModoGestion}"
-                                            Style="{DynamicResource ButtonsPartidosFecha}"
-                                            Text="EDITAR PARTIDO"
-                                            WidthRequest="110" />
-
-                                        <Button
-                                            Margin="5"
-                                            BackgroundColor="Red"
-                                            Command="{Binding CambiarModoGestionCommand}"
-                                            FontSize="18"
-                                            HeightRequest="40"
-                                            IsVisible="{Binding IsModoGestion}"
-                                            Style="{DynamicResource ButtonsPartidosFecha}"
-                                            Text="CANCELAR"
-                                            WidthRequest="110" />
-
-                                        <!--  BOTONES NO GESTION  -->
-                                        <!--<Button
-                                            Margin="5"
-                                            BackgroundColor="DarkOrange"
-                                            Command="{Binding CambiarModoGestionCommand}"
-                                            FontSize="16"
-                                            HeightRequest="40"
-                                            IsVisible="{Binding IsModoNoGestion}"
-                                            Style="{DynamicResource ButtonsPartidosFecha}"
-                                            Text="GESTION"
-                                            WidthRequest="110" />
-
-                                        <Button
-                                            Margin="5"
-                                            BackgroundColor="Green"
-                                            FontSize="16"
-                                            HeightRequest="40"
-                                            IsVisible="{Binding IsModoNoGestion}"
-                                            Style="{DynamicResource ButtonsPartidosFecha}"
-                                            Text="EDITAR"
-                                            WidthRequest="110" />
-
-                                        <Button
-                                            Margin="5"
-                                            BackgroundColor="Red"
-                                            FontSize="16"
-                                            HeightRequest="40"
-                                            IsVisible="{Binding IsModoNoGestion}"
-                                            Style="{DynamicResource ButtonsPartidosFecha}"
-                                            Text="ELIMINAR"
-                                            WidthRequest="110" />-->
-
                                     </VerticalStackLayout>
                                 </Grid>
 
@@ -623,13 +613,13 @@
 
 
             <!--  TABLA DATOS COMPETICION Y PARTIDOS  -->
-            <ScrollView />
+
             <Border
                 Grid.Row="2"
                 Grid.RowSpan="5"
                 Grid.Column="3"
                 Background="DodgerBlue"
-                IsVisible="{Binding IsModoPartido, Converter={toolkit:InvertedBoolConverter}}"
+                IsVisible="{Binding IsModoCompeticion}"
                 Style="{DynamicResource BorderPartidosStyle}">
                 <!--  grid competicion  -->
                 <Grid ColumnDefinitions="20,150, *" RowDefinitions="100, 150,70, 60,*">
@@ -696,6 +686,37 @@
                 <!--  grid competicion  -->
                 <Grid ColumnDefinitions="*, 180, 220, 180, *" RowDefinitions="*,120,70, *, * , *, *">
 
+                    <!--  BOTONES  -->
+                    <HorizontalStackLayout
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Button
+                            Margin="5"
+                            BackgroundColor="DarkOrange"
+                            Command="{Binding ModoCrearPartidoCommand}"
+                            FontSize="18"
+                            HeightRequest="50"
+                            IsVisible="{Binding IsModoPartido}"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="CREAR"
+                            WidthRequest="110" />
+
+                        <Button
+                            Margin="5"
+                            BackgroundColor="DarkOrange"
+                            Command="{Binding ModoEditarPartidoCommand}"
+                            FontSize="18"
+                            HeightRequest="50"
+                            IsVisible="{Binding IsModoPartido}"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="EDITAR / ELIMINAR"
+                            WidthRequest="110" />
+                    </HorizontalStackLayout>
+
+                    <!--  MODO CREAR PARTIDO  -->
                     <!--  EQUIPO 1  -->
                     <Picker
                         Grid.Row="1"
@@ -703,18 +724,11 @@
                         Background="White"
                         FontSize="22"
                         HeightRequest="40"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         ItemDisplayBinding="{Binding}"
                         ItemsSource="{Binding ListaEquipos}"
                         Style="{DynamicResource TextNormalStyle}"
                         WidthRequest="170" />
-                    <!--<Image
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HeightRequest="90"
-                        HorizontalOptions="Center"
-                        Source="icono_persona.png"
-                        VerticalOptions="Center"
-                        WidthRequest="90" />-->
 
                     <!--  RESULTADO  -->
                     <HorizontalStackLayout
@@ -727,6 +741,7 @@
                             FontSize="18"
                             HeightRequest="40"
                             HorizontalOptions="End"
+                            IsVisible="{Binding IsModoCrearPartido}"
                             Style="{DynamicResource TextNormalStyle}"
                             VerticalOptions="Center"
                             WidthRequest="70" />
@@ -734,6 +749,7 @@
                         <Label
                             FontSize="80"
                             HorizontalOptions="End"
+                            IsVisible="{Binding IsModoCrearPartido}"
                             Style="{DynamicResource TextNormalStyle}"
                             Text="-"
                             VerticalOptions="Center" />
@@ -744,6 +760,7 @@
                             FontSize="18"
                             HeightRequest="40"
                             HorizontalOptions="End"
+                            IsVisible="{Binding IsModoCrearPartido}"
                             ItemsSource="{Binding ListaPicker}"
                             Style="{DynamicResource TextNormalStyle}"
                             VerticalOptions="Center"
@@ -758,25 +775,18 @@
                         Background="White"
                         FontSize="24"
                         HeightRequest="40"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         ItemsSource="{Binding ListaPicker}"
                         SelectedItem="X"
                         Style="{DynamicResource TextNormalStyle}"
                         WidthRequest="170" />
-                    <!--<Image
-                        Grid.Row="1"
-                        Grid.Column="3"
-                        Grid.ColumnSpan="2"
-                        HeightRequest="90"
-                        HorizontalOptions="Center"
-                        Source="icono_persona.png"
-                        VerticalOptions="Center"
-                        WidthRequest="90" />-->
 
                     <!--  FECHA  -->
                     <Label
                         Grid.Row="2"
                         Grid.Column="1"
                         HorizontalOptions="End"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         Style="{DynamicResource TextNormalStyle}"
                         Text="FECHA:"
                         VerticalOptions="Center" />
@@ -785,6 +795,7 @@
                         Grid.Column="2"
                         Background="White"
                         HeightRequest="40"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         WidthRequest="150" />
 
                     <!--  LUGAR  -->
@@ -792,6 +803,7 @@
                         Grid.Row="3"
                         Grid.Column="1"
                         HorizontalOptions="End"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         Style="{DynamicResource TextNormalStyle}"
                         Text="LUGAR:"
                         VerticalOptions="Center" />
@@ -802,6 +814,7 @@
                         FontAttributes="Bold"
                         FontSize="18"
                         HeightRequest="40"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         WidthRequest="150" />
 
                     <!--  JORNADA  -->
@@ -809,6 +822,7 @@
                         Grid.Row="4"
                         Grid.Column="1"
                         HorizontalOptions="End"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         Style="{DynamicResource TextNormalStyle}"
                         Text="JORNADA:"
                         VerticalOptions="Center" />
@@ -818,6 +832,7 @@
                         Background="White"
                         FontSize="24"
                         HeightRequest="40"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         ItemsSource="{Binding ListaPicker}"
                         SelectedItem="X"
                         Style="{DynamicResource TextNormalStyle}"
@@ -828,9 +843,300 @@
                         Grid.Column="2"
                         Background="DarkOrange"
                         HeightRequest="40"
+                        IsVisible="{Binding IsModoCrearPartido}"
                         Style="{DynamicResource ButtonsPartidosFecha}"
                         Text="CREAR"
                         WidthRequest="120" />
+
+                    <!--  MODO EDITAR O ELIMINAR PARTIDO  -->
+                    <CollectionView
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        IsVisible="{Binding IsModoEditarPartido}"
+                        ItemsSource="{Binding ListadoPartidos}"
+                        SelectedItem="{Binding PartidoModel}"
+                        SelectionChangedCommand="{Binding MostrarPartidosInfoCommand}"
+                        SelectionMode="Single">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:DetallePartidoModel">
+                                <Border
+                                    x:Name="listaPartidos"
+                                    Background="AliceBlue"
+                                    Stroke="Black"
+                                    StrokeThickness="5"
+                                    Style="{DynamicResource BorderStyle}"
+                                    WidthRequest="450">
+                                    <VerticalStackLayout>
+
+                                        <Grid ColumnDefinitions="140,*,140" RowDefinitions="120,40">
+                                            <Image
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                HeightRequest="100"
+                                                HorizontalOptions="Center"
+                                                Source="icono_persona.png"
+                                                WidthRequest="100" />
+
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding NombreEquipoLocal}" />
+
+                                            <HorizontalStackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="Center">
+                                                <Label
+                                                    Margin="50,5,5,5"
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="{Binding GolesEquipoLocal}"
+                                                    VerticalOptions="End" />
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="-"
+                                                    VerticalOptions="End" />
+                                                <Label
+                                                    Margin="5,5,50,5"
+                                                    HorizontalOptions="Center"
+                                                    Style="{DynamicResource TextNormalStyle}"
+                                                    Text="{Binding GolesEquipoVisitante}"
+                                                    VerticalOptions="End" />
+                                            </HorizontalStackLayout>
+
+                                            <Image
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                HeightRequest="100"
+                                                Source="icono_persona.png"
+                                                WidthRequest="100" />
+
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                FontSize="28"
+                                                HorizontalOptions="Center"
+                                                Style="{DynamicResource TextNormalStyle}"
+                                                Text="{Binding NombreEquipoVisitante}" />
+                                        </Grid>
+
+                                    </VerticalStackLayout>
+
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Normal" />
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="Background" Value="LightGray" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                    <Border
+                        Grid.Row="3"
+                        Grid.RowSpan="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        Margin="5"
+                        IsVisible="{Binding IsModoEditarPartido}"
+                        Style="{DynamicResource BorderPartidosStyle}">
+                        <ScrollView HeightRequest="250">
+                            <Grid ColumnDefinitions="*, 180, 220, 180, *" RowDefinitions="*,120,70, *, * , *, *, *">
+                                <!--  EQUIPO 1  -->
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Background="White"
+                                    FontSize="22"
+                                    HeightRequest="40"
+                                    HorizontalTextAlignment="Center"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    Text="{Binding PartidoModel.NombreEquipoLocal}"
+                                    VerticalTextAlignment="Center"
+                                    WidthRequest="160" />
+
+                                <!--  RESULTADO  -->
+                                <HorizontalStackLayout
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    HorizontalOptions="Center">
+                                    <Picker
+                                        Margin="5"
+                                        Background="White"
+                                        FontSize="18"
+                                        HeightRequest="40"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsModoEditarPartido}"
+                                        ItemsSource="{Binding ListaPicker}"
+                                        SelectedItem="{Binding PartidoModel.GolesEquipoLocal}"
+                                        Style="{DynamicResource TextNormalStyle}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="70" />
+
+                                    <Label
+                                        FontSize="80"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsModoEditarPartido}"
+                                        Style="{DynamicResource TextNormalStyle}"
+                                        Text="-"
+                                        VerticalOptions="Center" />
+
+                                    <Picker
+                                        Margin="5"
+                                        Background="White"
+                                        FontSize="18"
+                                        HeightRequest="40"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsModoEditarPartido}"
+                                        ItemsSource="{Binding ListaPicker}"
+                                        SelectedItem="{Binding PartidoModel.GolesEquipoVisitante}"
+                                        Style="{DynamicResource TextNormalStyle}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="70" />
+                                </HorizontalStackLayout>
+
+
+                                <!--  EQUIPO 2  -->
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    Background="White"
+                                    FontSize="24"
+                                    HeightRequest="40"
+                                    HorizontalTextAlignment="Center"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    Text="{Binding PartidoModel.NombreEquipoVisitante}"
+                                    VerticalTextAlignment="Center"
+                                    WidthRequest="160" />
+
+                                <!--  FECHA  -->
+                                <Label
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    Text="FECHA:"
+                                    VerticalOptions="Center" />
+
+                                <DatePicker
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Background="White"
+                                    HeightRequest="40"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    WidthRequest="150" />
+
+                                <!--  LUGAR  -->
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    Text="LUGAR:"
+                                    VerticalOptions="Center" />
+                                <Entry
+                                    Grid.Row="3"
+                                    Grid.Column="2"
+                                    Background="White"
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    HeightRequest="40"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    Text="{Binding PartidoModel.Lugar}"
+                                    WidthRequest="150" />
+
+                                <!--  JORNADA  -->
+                                <Label
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    Text="JORNADA:"
+                                    VerticalOptions="Center" />
+                                <Picker
+                                    Grid.Row="4"
+                                    Grid.Column="2"
+                                    Background="White"
+                                    FontSize="24"
+                                    HeightRequest="40"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    ItemsSource="{Binding ListaPicker}"
+                                    SelectedItem="{Binding PartidoModel.NumJornada}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    WidthRequest="150" />
+
+                                <!--  TEMPORADA  -->
+                                <Label
+                                    Grid.Row="5"
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    IsVisible="{Binding IsModoEditarPartido}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    Text="TEMPORADA:"
+                                    VerticalOptions="Center" />
+                                <Entry
+                                    Grid.Row="5"
+                                    Grid.Column="2"
+                                    Background="White"
+                                    FontSize="24"
+                                    HeightRequest="40"
+                                    IsEnabled="False"
+                                    Text="{Binding PartidoModel.Temporada}"
+                                    Style="{DynamicResource TextNormalStyle}"
+                                    WidthRequest="150" />
+
+                                <HorizontalStackLayout
+                                    Grid.Row="6"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Button
+                                        Grid.Row="5"
+                                        Grid.Column="2"
+                                        Background="Green"
+                                        HeightRequest="40"
+                                        IsVisible="{Binding IsModoEditarPartido}"
+                                        Style="{DynamicResource ButtonsPartidosFecha}"
+                                        Text="EDITAR"
+                                        WidthRequest="120" />
+
+                                    <Button
+                                        Grid.Row="5"
+                                        Grid.Column="2"
+                                        Background="Red"
+                                        HeightRequest="40"
+                                        IsVisible="{Binding IsModoEditarPartido}"
+                                        Style="{DynamicResource ButtonsPartidosFecha}"
+                                        Text="ELIMINAR"
+                                        WidthRequest="120" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </ScrollView>
+
+                    </Border>
+
                 </Grid>
 
             </Border>
