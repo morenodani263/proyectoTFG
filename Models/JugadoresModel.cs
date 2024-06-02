@@ -13,10 +13,12 @@ namespace UltimateMatch.Models
         public string Nombre { get; set; }
         public string Apellidos { get; set; }
         public string Posicion { get; set; }
+        public string Nacionalidad { get; set; }
         public EquipoModel EquiposModel { get; set; }
         public string Avatar { get; set; }
 
-        public JugadoresModel(int id, string nombre, string apellidos, string posicion, string avatar, EquipoModel equipo)
+        public JugadoresModel() { }
+        public JugadoresModel(int id, string nombre, string apellidos, string posicion, string avatar, EquipoModel equipo, string nacion)
         {
             Jugador_id = id;
             Nombre = nombre;
@@ -24,6 +26,7 @@ namespace UltimateMatch.Models
             Posicion = posicion;
             Avatar = avatar;
             EquiposModel = equipo;
+            Nacionalidad = nacion;
         }
 
     }

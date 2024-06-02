@@ -74,8 +74,8 @@
                 <VerticalStackLayout BackgroundColor="DarkBlue">
                     <Button
                         Background="DarkOrange"
-                        Command="{Binding CambiarModoCommand}"
-                        CommandParameter="jugadores"
+                        Command="{Binding CambiarModoJugadorCommand}"
+                        CommandParameter="jugador_crear"
                         HeightRequest="40"
                         Style="{DynamicResource ButtonsPartidosFecha}"
                         Text="CREAR JUGADOR"
@@ -137,6 +137,8 @@
                 Margin="0"
                 ItemsSource="{Binding ListadoJugadores}"
                 ItemsUpdatingScrollMode="KeepLastItemInView"
+                SelectionChangedCommand="{Binding CambiarModoJugadorCommand}"
+                SelectionChangedCommandParameter="jugador_edicion"
                 SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:JugadoresModel">
@@ -207,6 +209,7 @@
 
             <!--  TABLA DATOS JUGADOR  -->
             <ScrollView />
+            <!--  crear jugador  -->
             <Border
                 Grid.Row="2"
                 Grid.RowSpan="5"
@@ -328,10 +331,157 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="7"
                         Background="SteelBlue"
+                        Command="{Binding CrearJugadorCommand}"
                         HeightRequest="40"
                         HorizontalOptions="Center"
                         Text="CREAR"
                         WidthRequest="140" />
+
+                </Grid>
+            </Border>
+
+            <!--  edicion jugador  -->
+            <Border
+                Grid.Row="2"
+                Grid.RowSpan="5"
+                Grid.Column="3"
+                Background="DodgerBlue"
+                IsVisible="{Binding IsModoEditarJugador}"
+                Style="{DynamicResource BorderPartidosStyle}">
+                <Grid ColumnDefinitions="120, *" RowDefinitions="120,*,*,*,*,*,*">
+
+                    <HorizontalStackLayout
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="6"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <!--  IMAGEN  -->
+                        <Image
+                            HeightRequest="90"
+                            HorizontalOptions="Center"
+                            Source="icono_persona.png"
+                            VerticalOptions="Center"
+                            WidthRequest="90" />
+
+                        <!--  TITULO  -->
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            FontSize="38"
+                            HorizontalOptions="End"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="EDICIÓN JUGADOR"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <!--  NOMBRE  -->
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontSize="18"
+                        HorizontalOptions="End"
+                        Style="{DynamicResource TextNormalStyle}"
+                        Text="NOMBRE:"
+                        VerticalOptions="Center" />
+                    <Entry
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Background="White"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        Text="{Binding Jugador.Nombre}"
+                        WidthRequest="350" />
+
+                    <!--  APELLIDOS  -->
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontSize="18"
+                        HorizontalOptions="End"
+                        Style="{DynamicResource TextNormalStyle}"
+                        Text="APELLIDOS:"
+                        VerticalOptions="Center" />
+                    <Entry
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Background="White"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        Text="{Binding Jugador.Apellidos}"
+                        WidthRequest="350" />
+
+                    <!--  NACIONALIDAD  -->
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        FontSize="18"
+                        HorizontalOptions="End"
+                        Style="{DynamicResource TextNormalStyle}"
+                        Text="NACIONALIDAD:"
+                        VerticalOptions="Center" />
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Background="White"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        Text="{Binding Jugador.Nacionalidad}"
+                        WidthRequest="350" />
+                    <!--  POSICION  -->
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        FontSize="18"
+                        HorizontalOptions="End"
+                        Style="{DynamicResource TextNormalStyle}"
+                        Text="POSICION:"
+                        VerticalOptions="Center" />
+                    <Entry
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Background="White"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        Text="{Binding Jugador.Posicion}"
+                        WidthRequest="350" />
+                    <!--  EQUIPO  -->
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        FontSize="18"
+                        HorizontalOptions="End"
+                        Style="{DynamicResource TextNormalStyle}"
+                        Text="EQUIPO:"
+                        VerticalOptions="Center" />
+                    <Entry
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Background="White"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        Text="{Binding Jugador.EquiposModel.Nombre}"
+                        WidthRequest="350" />
+                    <!--  BOTON editar/eliminar  -->
+                    <HorizontalStackLayout
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="7"
+                        HorizontalOptions="Center">
+                        <Button
+                            Background="SteelBlue"
+                            Command="{Binding EditarJugadorCommand}"
+                            HeightRequest="40"
+                            Text="EDITAR"
+                            WidthRequest="140" />
+                        <Button
+                            Background="Red"
+                            Command="{Binding EliminarJugadorCommand}"
+                            HeightRequest="40"
+                            Text="ELIMINAR"
+                            WidthRequest="140" />
+                    </HorizontalStackLayout>
+
 
                 </Grid>
             </Border>

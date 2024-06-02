@@ -85,6 +85,12 @@ namespace UltimateMatch.ViewModels
         [ObservableProperty]
         private bool isModoEditarEquipo;
 
+        [ObservableProperty]
+        private bool isModoEditarJugador;
+
+        [ObservableProperty]
+        private bool isModoCrearJugador;
+
         public CrudViewModel() {
             PartidoModel = new DetallePartidoModel();
             Jugador = new JugadoresModel();
@@ -94,7 +100,9 @@ namespace UltimateMatch.ViewModels
             ListadoPartidos = new ObservableCollection<DetallePartidoModel>();
             IsModoCrearEquipo = true;
             IsModoEditarEquipo = false;
+            IsModoCrearJugador = true;
             IsModoCompeticionEquipo = false;
+            isModoEditarJugador = false;
             
 
             DetallePartidoModel d1 = new DetallePartidoModel();
@@ -161,6 +169,21 @@ namespace UltimateMatch.ViewModels
         }
 
         [RelayCommand]
+        public void CambiarModoJugador(string modo)
+        {
+            if(modo == "jugador_edicion")
+            {
+                IsModoEditarJugador = true;
+                IsModoCrearJugador = false;
+            }
+            else if(modo == "jugador_crear")
+            {
+                IsModoEditarJugador = false;
+                IsModoCrearJugador = true;
+            }
+        }
+
+            [RelayCommand]
         public void CambiarModo(string modo)
         {
             if(modo == "jugadores")
@@ -168,20 +191,23 @@ namespace UltimateMatch.ViewModels
                 IsModoJugadorEnabled = true ;
                 IsModoCompeticionEnabled = false;
                 IsModoEquipoEnabled = false;
+                IsModoEditarJugador = false;
             }
             else if(modo == "competicion")
             {
                 IsModoCompeticionEnabled= true ;
                 IsModoJugadorEnabled = false;
                 IsModoEquipoEnabled = false;
+                IsModoEditarJugador = false;
             }
             else if (modo == "equipo")
             {
                 IsModoEquipoEnabled= true ;
                 IsModoCompeticionEnabled = false;
                 IsModoJugadorEnabled = false;
-            }
-            
+                IsModoEditarJugador = false;
+            }           
+
         }
 
         [RelayCommand]
@@ -257,9 +283,9 @@ namespace UltimateMatch.ViewModels
         public void RellenoListado()
         {
             EquipoModel equipoModel = new EquipoModel(1, "Ciruelos", "");
-            ListadoJugadores.Add(new JugadoresModel(1 , "Florian", "Wirtz", "MCO", "", equipoModel) { });
-            ListadoJugadores.Add(new JugadoresModel(2, "Jamal", "Musiala", "EI", "", equipoModel) { });
-            ListadoJugadores.Add(new JugadoresModel(3, "Lamine", "Yamal", "ED", "", equipoModel) { });
+            ListadoJugadores.Add(new JugadoresModel(1 , "Florian", "Wirtz", "MCO", "", equipoModel, "Alemania") { });
+            ListadoJugadores.Add(new JugadoresModel(2, "Jamal", "Musiala", "EI", "", equipoModel, "Alemania") { });
+            ListadoJugadores.Add(new JugadoresModel(3, "Lamine", "Yamal", "ED", "", equipoModel, "Alemania") { });
         }
 
         [RelayCommand]
@@ -617,7 +643,7 @@ namespace UltimateMatch.ViewModels
         }
 
         //CRUD JUGADORES
-
+        [RelayCommand]
         public async Task CrearJugador()
         {
             RequestModel request = new RequestModel(method: "POST",
@@ -636,6 +662,7 @@ namespace UltimateMatch.ViewModels
             }
         }
 
+        [RelayCommand]
         public async Task EditarJugador()
         {
             RequestModel request = new RequestModel(method: "POST",
@@ -653,7 +680,7 @@ namespace UltimateMatch.ViewModels
                 App.Current.MainPage.DisplayAlert("Error al editar", response.Message, "ACEPTAR");
             }
         }
-
+        [RelayCommand]
         public async Task EliminarJugador()
         {
             RequestModel request = new RequestModel(method: "POST",
