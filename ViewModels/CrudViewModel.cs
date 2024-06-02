@@ -16,7 +16,19 @@ namespace UltimateMatch.ViewModels
     internal partial class CrudViewModel: ObservableObject
     {
         [ObservableProperty]
+        private bool isModoCompeticionEquipo;
+
+        [ObservableProperty]
+        private JugadoresModel jugador;
+
+        [ObservableProperty]
+        private int maxId = 0;
+
+        [ObservableProperty]
         private DetallePartidoModel partidoModel;
+
+        [ObservableProperty]
+        private EquipoModel equipoActual;
 
         [ObservableProperty]
         private ObservableCollection<JugadoresModel> listadoJugadores;
@@ -67,14 +79,22 @@ namespace UltimateMatch.ViewModels
         [ObservableProperty]
         private bool isModoEditarPartido;
 
-        
+        [ObservableProperty]
+        private bool isModoCrearEquipo;
+
+        [ObservableProperty]
+        private bool isModoEditarEquipo;
 
         public CrudViewModel() {
             PartidoModel = new DetallePartidoModel();
+            Jugador = new JugadoresModel();
+            EquipoActual = new EquipoModel();
             ListadoJugadores = new ObservableCollection<JugadoresModel>();
             ListaCompeticiones = new ObservableCollection<CompeticionModel>();
             ListadoPartidos = new ObservableCollection<DetallePartidoModel>();
-
+            IsModoCrearEquipo = true;
+            IsModoEditarEquipo = false;
+            IsModoCompeticionEquipo = false;
             
 
             DetallePartidoModel d1 = new DetallePartidoModel();
@@ -287,10 +307,10 @@ namespace UltimateMatch.ViewModels
                         JsonConvert.DeserializeObject<CompeticionModel>(response.Data.ToString());
                 ListaCompeticiones.Add(CompeticionModel);*/
             }
-           /* else
+            else
             {
                 await ObtenerTodasCompeticiones();
-            }*/
+            }
 
         }
 
@@ -394,6 +414,262 @@ namespace UltimateMatch.ViewModels
                 App.Current.MainPage.DisplayAlert("NO SE HA PODIDO REALIZAR LA OPERACIÓN", response.Message, "ACEPTAR");
             }
 
+        }
+
+        //Crear equipo
+        [RelayCommand]
+        public async Task CrearEquipo()
+        {
+            /*if (AvatarImage64 != null)
+            {
+                CompeticionModel.Avatar = AvatarImage64;
+            }*/
+            //CompeticionModel.EsLiga = true;
+            await GetMaxIdEquipo();
+            EquipoActual.Equipo_id = MaxId + 1;
+            
+                    
+            RequestModel request = new RequestModel(method: "POST",
+                                                    route: "/partidos/crearEquipo",
+                                                    data: EquipoActual,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                Application.Current.MainPage.DisplayAlert("Equipo creado con éxito", response.Message, "ACEPTAR");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("No se ha podido crear equipo", response.Message, "ACEPTAR");
+            }
+
+        }
+
+        //Cambiar modo en el crud equipo
+        [RelayCommand]
+        public void CambiarModoCrudEquipo(string modo)
+        {
+            if (modo.Equals("crear"))
+            {
+                IsModoCrearEquipo = true;
+                IsModoEditarEquipo = false;
+                EquipoActual.Nombre = "";
+                IsModoCompeticionEquipo = false;
+            }
+            else if(modo.Equals("editar"))
+            {
+                IsModoCrearEquipo = false;
+                IsModoEditarEquipo = true;
+                IsModoCompeticionEquipo = false;
+            }
+            else if (modo.Equals("competicion"))
+            {
+                IsModoCrearEquipo = false;
+                IsModoEditarEquipo = false;
+                IsModoCompeticionEquipo = true;
+            }
+        }
+
+        //obtener equipos filtro nombre
+        [RelayCommand]
+        public async Task FiltrarEquiposNombre(string nombreEquipo)
+        {
+            RequestModel request = new RequestModel(method: "GET",
+                                                    route: "/partidos/filtrarEquiposNombre/" + nombreEquipo,
+                                                    data: string.Empty,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                ListaEquipos =
+                        JsonConvert.DeserializeObject<ObservableCollection<EquipoModel>>(response.Data.ToString());
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("No se han podido obtener equipos", response.Message, "ACEPTAR");
+            }
+
+        }
+
+        //obtener todos los equipos
+        [RelayCommand]
+        public async Task ObtenerTodosEquipos()
+        {
+            RequestModel request = new RequestModel(method: "GET",
+                                                    route: "/partidos/obtenerEquipos",
+                                                    data: string.Empty,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                ListaEquipos =
+                        JsonConvert.DeserializeObject<ObservableCollection<EquipoModel>>(response.Data.ToString());
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("No se han podido obtener equipos", response.Message, "ACEPTAR");
+            }
+
+        }
+
+        //editar equipo
+        [RelayCommand]
+        public async Task EditarEquipo()
+        {
+            RequestModel request = new RequestModel(method: "POST",
+                                                    route: "/partidos/editarEquipo",
+                                                    data: EquipoActual,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                /* ListaEquipos =
+                         JsonConvert.DeserializeObject<ObservableCollection<EquipoModel>>(response.Data.ToString());*/
+                App.Current.MainPage.DisplayAlert("Se ha editado con éxito", response.Message, "ACEPTAR");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("No se han podido obtener equipos", response.Message, "ACEPTAR");
+            }
+
+        }
+
+        //añadir un equipo a una competicion
+        [RelayCommand]
+        public async Task AnadirEquipoACompeticion()
+        {
+            CompeticionEquipoModel competicion_equipo = new CompeticionEquipoModel();
+            competicion_equipo.CompeticionId = CompeticionModel;
+            competicion_equipo.EquipoId = EquipoActual;
+
+            RequestModel request = new RequestModel(method: "POST",
+                                                    route: "/partidos/addEquipoCompeticion",
+                                                    data: competicion_equipo,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            
+            if (response.Success == 0)
+            {
+                App.Current.MainPage.DisplayAlert("Se ha añadido con éxito", response.Message, "ACEPTAR");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("No se ha podido añadir el equipo a la competicion", response.Message, "ACEPTAR");
+            }
+
+        }
+
+        //eliminar equipo
+        [RelayCommand]
+        public async Task EliminarEquipo()
+        {
+            bool answer = await App.Current.MainPage.DisplayAlert(
+            "Confirmar Eliminación",
+            "¿Está seguro de que desea eliminar este elemento?",
+            "Eliminar",
+            "Cancelar");
+
+            if (answer)
+            {
+                RequestModel request = new RequestModel(method: "POST",
+                                                    route: "/partidos/eliminarEquipo",
+                                                    data: EquipoActual,
+                                                    server: APIService.URL_API);
+
+                ResponseModel response = await APIService.ExecuteRequest(request);
+
+                if (response.Success == 0)
+                {
+                    /* ListaEquipos =
+                             JsonConvert.DeserializeObject<ObservableCollection<EquipoModel>>(response.Data.ToString());*/
+                    App.Current.MainPage.DisplayAlert("Se ha eliminado con éxito", response.Message, "ACEPTAR");
+                }
+                else
+                {
+                    App.Current.MainPage.DisplayAlert("No se ha podido eliminar equipo", response.Message, "ACEPTAR");
+                }
+            }
+        }
+
+        
+        
+        public async Task GetMaxIdEquipo()
+        {         
+            
+            RequestModel request = new RequestModel(method: "GET",
+                                                route: "/partidos/getMaxIdEquipo",
+                                                data: string.Empty,
+                                                server: APIService.URL_API);
+
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                maxId =
+                         JsonConvert.DeserializeObject<int>(response.Data.ToString());
+            }
+
+        }
+
+        //CRUD JUGADORES
+
+        public async Task CrearJugador()
+        {
+            RequestModel request = new RequestModel(method: "POST",
+                                                    route: "/partidos/crearJugador",
+                                                    data: Jugador,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                App.Current.MainPage.DisplayAlert("Se ha creado con éxito", response.Message, "ACEPTAR");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("Error al crear", response.Message, "ACEPTAR");
+            }
+        }
+
+        public async Task EditarJugador()
+        {
+            RequestModel request = new RequestModel(method: "POST",
+                                                    route: "/partidos/editarJugador",
+                                                    data: Jugador,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                App.Current.MainPage.DisplayAlert("Se ha editado con éxito", response.Message, "ACEPTAR");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("Error al editar", response.Message, "ACEPTAR");
+            }
+        }
+
+        public async Task EliminarJugador()
+        {
+            RequestModel request = new RequestModel(method: "POST",
+                                                    route: "/partidos/eliminarJugador",
+                                                    data: Jugador,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                App.Current.MainPage.DisplayAlert("Se ha eliminado con éxito", response.Message, "ACEPTAR");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("Error al eliminar", response.Message, "ACEPTAR");
+            }
         }
     }
 }

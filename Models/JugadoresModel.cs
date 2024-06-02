@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,7 @@ namespace UltimateMatch.Models
 
     public class EquipoModel
     {
+        [JsonProperty("equipoId")]
         public int Equipo_id { get; set; }
         public string Nombre { get; set; }
         public string Escudo { get; set; }
@@ -40,6 +42,11 @@ namespace UltimateMatch.Models
             Equipo_id = equipo_id;
             Nombre = nombre;
             Escudo = escudo;
+        }
+
+        public EquipoModel()
+        {
+          
         }
     }
 }
