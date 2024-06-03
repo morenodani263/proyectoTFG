@@ -13,8 +13,12 @@ using UltimateMatch.Services;
 
 namespace UltimateMatch.ViewModels
 {
+    [QueryProperty("User", "User")]
     internal partial class CrudViewModel: ObservableObject
     {
+        [ObservableProperty]
+        private UsuarioModel user = new UsuarioModel();
+
         [ObservableProperty]
         private bool isModoCompeticionEquipo;
 

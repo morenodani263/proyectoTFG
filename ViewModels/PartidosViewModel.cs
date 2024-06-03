@@ -17,6 +17,9 @@ namespace UltimateMatch.ViewModels
     internal partial class PartidosViewModel: ObservableObject
     {
         [ObservableProperty]
+        private UsuarioModel user = new UsuarioModel();
+
+        [ObservableProperty]
         private ObservableCollection<DetallePartidoModel> listaDetallePartido;
 
         [ObservableProperty]
@@ -49,6 +52,15 @@ namespace UltimateMatch.ViewModels
             ListaClasificacion = new ObservableCollection<ClasificacionDTOModel> { };
             isModoPlantilla = true;
             NombreCompeticion = "Liga X";
+        }
+
+        [RelayCommand]
+        public async Task Navegar(string nombrePagina)
+        {
+            await Shell.Current.GoToAsync("//" + nombrePagina, new Dictionary<string, object>()
+            {
+                ["User"] = User
+            });
         }
 
         [RelayCommand]

@@ -45,26 +45,26 @@
 
                     <HorizontalStackLayout Grid.Row="0">
                         <Button
-                            WidthRequest="110"
                             Margin="5,0,0,0"
                             Command="{Binding FechaEleccionRapidaCommand}"
                             CommandParameter="ayer"
                             Style="{DynamicResource ButtonsPartidosFecha}"
-                            Text="AYER" />
+                            Text="AYER"
+                            WidthRequest="110" />
                         <Button
-                            WidthRequest="110"
                             Margin="5,0,0,0"
                             Command="{Binding FechaEleccionRapidaCommand}"
                             CommandParameter="hoy"
                             Style="{DynamicResource ButtonsPartidosFecha}"
-                            Text="HOY" />
+                            Text="HOY"
+                            WidthRequest="110" />
                         <Button
-                            WidthRequest="120"
                             Margin="5,0,0,0"
                             Command="{Binding FechaEleccionRapidaCommand}"
                             CommandParameter="mañana"
                             Style="{DynamicResource ButtonsPartidosFecha}"
-                            Text="MAÑANA" />
+                            Text="MAÑANA"
+                            WidthRequest="120" />
                         <DatePicker
                             x:Name="datePicker"
                             Margin="5,0,0,0"
@@ -105,18 +105,18 @@
                                         Background="AliceBlue"
                                         Stroke="Black"
                                         StrokeThickness="5"
-                                        WidthRequest="450"
-                                        Style="{DynamicResource BorderStyle}">
+                                        Style="{DynamicResource BorderStyle}"
+                                        WidthRequest="450">
                                         <VerticalStackLayout>
-                                            
+
                                             <Grid ColumnDefinitions="140,*,140" RowDefinitions="*,*">
                                                 <Image
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     HeightRequest="100"
+                                                    HorizontalOptions="Center"
                                                     Source="icono_persona.png"
-                                                    WidthRequest="100" 
-                                                    HorizontalOptions="Center"/>
+                                                    WidthRequest="100" />
 
                                                 <Label
                                                     Grid.Row="1"
@@ -126,7 +126,10 @@
                                                     Style="{DynamicResource TextNormalStyle}"
                                                     Text="{Binding NombreEquipoLocal}" />
 
-                                                <HorizontalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                                                <HorizontalStackLayout
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="Center">
                                                     <Label
                                                         Margin="50,5,5,5"
                                                         HorizontalOptions="Center"
@@ -235,15 +238,19 @@
 
         <VerticalStackLayout Grid.Row="1" Grid.Column="2">
             <HorizontalStackLayout Margin="80,0,0,0">
-                <Button
+                <!--<Button
                     Style="{DynamicResource ButtonsPartidosFecha}"
                     Text="COMPETICIONES"
-                    WidthRequest="160" />
+                    WidthRequest="160" />-->
                 <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="JugadoresPage"
                     Style="{DynamicResource ButtonsPartidosFecha}"
-                    Text="JUGADORES"
+                    Text="JUGADORES/EQUIPOS"
                     WidthRequest="160" />
                 <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="CrudPage"
                     Style="{DynamicResource ButtonsPartidosFecha}"
                     Text="GESTIÓN"
                     WidthRequest="160" />
@@ -665,10 +672,10 @@
 
                         <!--  LISTA CLASIFICACION  -->
                         <CollectionView
-                            Margin="0, 0, 0, 0"
                             Grid.Row="2"
                             Grid.Column="0"
                             Grid.ColumnSpan="5"
+                            Margin="0,0,0,0"
                             ItemsSource="{Binding ListaClasificacion}"
                             ItemsUpdatingScrollMode="KeepLastItemInView"
                             SelectionMode="Single">
