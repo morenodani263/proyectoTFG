@@ -138,6 +138,7 @@
                 ItemsSource="{Binding ListadoJugadores}"
                 ItemsUpdatingScrollMode="KeepLastItemInView"
                 SelectionChangedCommand="{Binding CambiarModoJugadorCommand}"
+                SelectedItem="{Binding Jugador}"
                 SelectionChangedCommandParameter="jugador_edicion"
                 SelectionMode="Single">
                 <CollectionView.ItemTemplate>
@@ -165,7 +166,7 @@
                                     </HorizontalStackLayout>
 
 
-                                    <!--  nombre, apellidos, posicion  -->
+                                    <!--  nombre, apellidos -->
                                     <VerticalStackLayout
                                         Grid.Row="0"
                                         Grid.Column="1"
@@ -208,15 +209,19 @@
             </CollectionView>
 
             <!--  TABLA DATOS JUGADOR  -->
-            <ScrollView />
+            <ScrollView  IsVisible="{Binding IsModoCrearJugador}"
+                        Grid.Row="2"
+                        Grid.RowSpan="5"
+                        Grid.Column="3">
             <!--  crear jugador  -->
             <Border
                 Grid.Row="2"
                 Grid.RowSpan="5"
                 Grid.Column="3"
                 Background="DodgerBlue"
+                IsVisible="{Binding IsModoCrearJugador}"
                 Style="{DynamicResource BorderPartidosStyle}">
-                <Grid ColumnDefinitions="120, *" RowDefinitions="120,*,*,*,*,*,*">
+                <Grid ColumnDefinitions="120, *" RowDefinitions="100,*,*,*,*,*,*, *">
 
                     <HorizontalStackLayout
                         Grid.Row="0"
@@ -258,7 +263,8 @@
                         Background="White"
                         HeightRequest="40"
                         HorizontalOptions="Start"
-                        WidthRequest="350" />
+                        WidthRequest="350"
+                         Text="{Binding Jugador.Nombre}"/>
 
                     <!--  APELLIDOS  -->
                     <Label
@@ -275,7 +281,8 @@
                         Background="White"
                         HeightRequest="40"
                         HorizontalOptions="Start"
-                        WidthRequest="350" />
+                        WidthRequest="350" 
+                         Text="{Binding Jugador.Apellidos}"/>
 
                     <!--  NACIONALIDAD  -->
                     <Label
@@ -292,7 +299,8 @@
                         Background="White"
                         HeightRequest="40"
                         HorizontalOptions="Start"
-                        WidthRequest="350" />
+                        WidthRequest="350"
+                         Text="{Binding Jugador.Nacionalidad}"/>
                     <!--  POSICION  -->
                     <Label
                         Grid.Row="4"
@@ -308,7 +316,8 @@
                         Background="White"
                         HeightRequest="40"
                         HorizontalOptions="Start"
-                        WidthRequest="350" />
+                        WidthRequest="350" 
+                        Text="{Binding Jugador.Posicion}"/>
                     <!--  EQUIPO  -->
                     <Label
                         Grid.Row="5"
@@ -318,29 +327,61 @@
                         Style="{DynamicResource TextNormalStyle}"
                         Text="EQUIPO:"
                         VerticalOptions="Center" />
-                    <Entry
+                    <Picker
                         Grid.Row="5"
                         Grid.Column="1"
                         Background="White"
                         HeightRequest="40"
                         HorizontalOptions="Start"
-                        WidthRequest="350" />
+                        WidthRequest="350"
+                        ItemsSource="{Binding ListaEquipos}"
+                        SelectedItem="{Binding Jugador.EquiposModel}"/>
+                    <!--BUSQUEDA EQUIPO-->
+                    <Entry
+                        x:Name="filter_equipo2"
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Background="White"
+                        TextColor="Black"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        WidthRequest="350"
+                        Placeholder="NOMBRE / TODOS (VACIO)"
+                        />
+                    <Button Grid.Row="6"
+                            Grid.Column="0"
+                            HeightRequest="40"
+                            WidthRequest="100"                           
+                            Background="SteelBlue"
+                            FontSize="18"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            TextColor="White"
+                            Text="BUSCAR"
+                            Command="{Binding ObtenerEquiposCompeticion2Command}"
+                            CommandParameter="{Binding Source={x:Reference filter_equipo2}, Path=Text}"
+                            />
                     <!--  BOTON CREAR  -->
                     <Button
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="0"
                         Grid.ColumnSpan="7"
                         Background="SteelBlue"
                         Command="{Binding CrearJugadorCommand}"
                         HeightRequest="40"
+                        FontSize="18"
+                        Style="{DynamicResource ButtonsPartidosFecha}"
                         HorizontalOptions="Center"
                         Text="CREAR"
                         WidthRequest="140" />
 
                 </Grid>
             </Border>
-
-            <!--  edicion jugador  -->
+            </ScrollView >
+                    <!--  edicion jugador  -->
+            <ScrollView IsVisible="{Binding IsModoEditarJugador}"
+                        Grid.Row="2"
+                        Grid.RowSpan="5"
+                        Grid.Column="3">
             <Border
                 Grid.Row="2"
                 Grid.RowSpan="5"
@@ -348,9 +389,9 @@
                 Background="DodgerBlue"
                 IsVisible="{Binding IsModoEditarJugador}"
                 Style="{DynamicResource BorderPartidosStyle}">
-                <Grid ColumnDefinitions="120, *" RowDefinitions="120,*,*,*,*,*,*">
+                    <Grid ColumnDefinitions="120, *" RowDefinitions="100,*,*,*,*,*,*,*">
 
-                    <HorizontalStackLayout
+                        <HorizontalStackLayout
                         Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="6"
@@ -454,17 +495,43 @@
                         Style="{DynamicResource TextNormalStyle}"
                         Text="EQUIPO:"
                         VerticalOptions="Center" />
+                    <Picker
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Background="White"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    WidthRequest="350"
+                    ItemsSource="{Binding ListaEquipos}"
+                    SelectedItem="{Binding Jugador.EquiposModel}"/>
+                    <!--BUSQUEDA EQUIPO-->
                     <Entry
-                        Grid.Row="5"
+                        x:Name="filter_equipo"
+                        Grid.Row="6"
                         Grid.Column="1"
                         Background="White"
+                        TextColor="Black"
                         HeightRequest="40"
                         HorizontalOptions="Start"
-                        Text="{Binding Jugador.EquiposModel.Nombre}"
-                        WidthRequest="350" />
+                        WidthRequest="350"
+                        Placeholder="NOMBRE / TODOS (VACIO)"
+                        />
+                    <Button Grid.Row="6"
+                        Grid.Column="0"
+                        HeightRequest="40"
+                        WidthRequest="100"  
+                        FontSize="18"
+                        Background="SteelBlue"
+                        TextColor="White"
+                        Style="{DynamicResource ButtonsPartidosFecha}"
+                        Text="BUSCAR"
+                        Command="{Binding ObtenerEquiposCompeticion2Command}"
+                        CommandParameter="{Binding Source={x:Reference filter_equipo}, Path=Text}"
+                        />
+                    
                     <!--  BOTON editar/eliminar  -->
                     <HorizontalStackLayout
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="0"
                         Grid.ColumnSpan="7"
                         HorizontalOptions="Center">
@@ -473,10 +540,14 @@
                             Command="{Binding EditarJugadorCommand}"
                             HeightRequest="40"
                             Text="EDITAR"
+                            FontSize="18"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
                             WidthRequest="140" />
                         <Button
                             Background="Red"
                             Command="{Binding EliminarJugadorCommand}"
+                            FontSize="18"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
                             HeightRequest="40"
                             Text="ELIMINAR"
                             WidthRequest="140" />
@@ -485,6 +556,7 @@
 
                 </Grid>
             </Border>
+            </ScrollView >
 
         </Grid>
 

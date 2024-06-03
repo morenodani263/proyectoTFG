@@ -358,7 +358,47 @@ namespace UltimateMatch.ViewModels
             }
             else
             {
-                
+                await ObtenerAllEquipos();
+            }
+
+        }
+
+        [RelayCommand]
+        public async Task ObtenerEquiposCompeticion2(string nombre)
+        {
+            CambiarModoPartido();
+
+            RequestModel request = new RequestModel(method: "GET",
+                                                    route: "/partidos/obtenerEquiposCompeticion/" + nombre,
+                                                    data: string.Empty,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                ListaEquipos =
+                        JsonConvert.DeserializeObject<ObservableCollection<EquipoModel>>(response.Data.ToString());
+            }
+            else
+            {
+                await ObtenerAllEquipos();
+            }
+
+        }
+
+        //obtener todos los equipos
+        public async Task ObtenerAllEquipos()
+        {
+            RequestModel request = new RequestModel(method: "GET",
+                                                    route: "/partidos/obtenerAllEquipos",
+                                                    data: CompeticionModel,
+                                                    server: APIService.URL_API);
+            ResponseModel response = await APIService.ExecuteRequest(request);
+
+            if (response.Success == 0)
+            {
+                ListaEquipos =
+                        JsonConvert.DeserializeObject<ObservableCollection<EquipoModel>>(response.Data.ToString());
             }
 
         }
