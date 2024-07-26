@@ -14,10 +14,11 @@ using UltimateMatch.Services;
 
 namespace UltimateMatch.ViewModels
 {
+    [QueryProperty("User", "User")]
     internal partial class PartidosViewModel: ObservableObject
     {
         [ObservableProperty]
-        private UsuarioModel user = new UsuarioModel();
+        private UsuarioModel user;
 
         [ObservableProperty]
         private ObservableCollection<DetallePartidoModel> listaDetallePartido;
@@ -43,8 +44,11 @@ namespace UltimateMatch.ViewModels
         [ObservableProperty]
         private string nombreCompeticion;
 
+        
+
         public PartidosViewModel() 
         {
+            User = new UsuarioModel();
             listaDetallePartido = new ObservableCollection<DetallePartidoModel> { new DetallePartidoModel() };
             ListaJugadores = new ObservableCollection<JugadoresModel> {};
             ListaJugadoresEq1 = new ObservableCollection<JugadoresModel>();
@@ -52,6 +56,7 @@ namespace UltimateMatch.ViewModels
             ListaClasificacion = new ObservableCollection<ClasificacionDTOModel> { };
             isModoPlantilla = true;
             NombreCompeticion = "Liga X";
+            
         }
 
         [RelayCommand]

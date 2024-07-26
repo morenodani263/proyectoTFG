@@ -6,9 +6,10 @@
     xmlns:local="clr-namespace:UltimateMatch"
     xmlns:views="clr-namespace:UltimateMatch.Views"
     Title="UltimateMatch"
-    Shell.FlyoutBehavior="Disabled">
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False">
 
-    <TabBar>
+    <!--<TabBar>
 
         <Tab Title="LOGIN">
             <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="LoginPage" />
@@ -27,9 +28,21 @@
         </Tab>
 
         <Tab Title="CRUD">
-            <ShellContent ContentTemplate="{DataTemplate views:CrudPage}" Route="JugadoresPage" />
+            <ShellContent ContentTemplate="{DataTemplate views:CrudPage}" Route="CrudPage" />
         </Tab>
-    </TabBar>
+
+    </TabBar>-->
+
+    <ShellContent Route="LoginPage"
+                  ContentTemplate="{DataTemplate views:LoginPage}" />
+    <ShellContent Route="PartidosPage"
+                  ContentTemplate="{DataTemplate local:PartidosPage}" />
+    <ShellContent Route="RegisterPage"
+                  ContentTemplate="{DataTemplate views:RegisterPage}" />
+    <ShellContent Route="JugadoresPage"
+                  ContentTemplate="{DataTemplate views:JugadoresPage}" />
+    <ShellContent Route="CrudPage"
+                  ContentTemplate="{DataTemplate views:CrudPage}" />
 
 
 </Shell>

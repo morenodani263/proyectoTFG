@@ -218,10 +218,14 @@
                     Text="COMPETICIONES"
                     WidthRequest="160" />-->
                 <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="PartidosPage"
                     Style="{DynamicResource ButtonsPartidosFecha}"
                     Text="PARTIDOS"
                     WidthRequest="160" />
                 <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="CrudPage"
                     Style="{DynamicResource ButtonsPartidosFecha}"
                     Text="GESTIÓN"
                     WidthRequest="160" />
@@ -298,7 +302,8 @@
                                     <Image
                                         Margin="10"
                                         HeightRequest="80"
-                                        Source="icono_persona.png"
+                                        IsAnimationPlaying="True"
+                                        Source="{Binding Avatar}"
                                         WidthRequest="80" />
                                 </HorizontalStackLayout>
 
@@ -353,9 +358,9 @@
             Grid.Column="2"
             Margin="10,0,0,0"
             IsVisible="{Binding IsModoEquipo}"
-            ItemsSource="{Binding ListaEquipos}"
+            ItemsSource="{Binding ListadoEquipos2}"
             ItemsUpdatingScrollMode="KeepLastItemInView"
-            SelectedItem="{Binding Equipo}"
+            SelectedItem="{Binding EquipoActual}"
             SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:EquipoModel">
@@ -374,10 +379,16 @@
                                     Grid.Column="0"
                                     VerticalOptions="Center">
                                     <!--  imagen equipo  -->
-                                    <Image
+                                    <!--<Image
                                         Margin="10"
                                         HeightRequest="80"
                                         Source="icono_persona.png"
+                                        WidthRequest="80" />-->
+                                    <Image
+                                        Margin="10"
+                                        HeightRequest="80"
+                                        IsAnimationPlaying="True"
+                                        Source="{Binding Escudo}"
                                         WidthRequest="80" />
                                 </HorizontalStackLayout>
 

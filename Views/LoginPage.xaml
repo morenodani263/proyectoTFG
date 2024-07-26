@@ -13,7 +13,7 @@
         <converters:Base64ToImageSourceConverter x:Key="Base64ToImageSourceConverter" />
     </ContentPage.Resources>
 
-    <Grid ColumnDefinitions="*,900,*" RowDefinitions="*,600,*">
+    <Grid ColumnDefinitions="*,1000,*" RowDefinitions="*,600,*">
         <!--<VerticalStackLayout
             Grid.Row="0"
             Grid.Column="0"
@@ -33,7 +33,7 @@
             Grid.Column="1"
             Margin="30,0,30,0"
             BackgroundColor="LightGray"
-            HeightRequest="500"
+            HeightRequest="520"
             HorizontalOptions="FillAndExpand"
             StrokeThickness="5"
             VerticalOptions="FillAndExpand"
@@ -67,7 +67,7 @@
                     FontFamily="PramukhRounded-Bold.otf"
                     FontSize="25"
                     HeightRequest="60"
-                    Text="{Binding Usuario.NombreUsuario}"
+                    Text="{Binding User.NombreUsuario}"
                     WidthRequest="450" />
 
                 <Label
@@ -84,12 +84,15 @@
                     FontFamily="PramukhRounded-Bold.otf"
                     FontSize="25"
                     HeightRequest="60"
-                    Text="{Binding Usuario.Password}"
+                    IsPassword="True"
+                    Text="{Binding User.Password}"
                     WidthRequest="450" />
 
 
+
+
                 <Button
-                    Margin="0,20,0,0"
+                    Margin="0,10,0,0"
                     Command="{Binding LoginCommand}"
                     FontAttributes="Bold"
                     FontFamily="Super-Bloom.ttf"
@@ -97,6 +100,17 @@
                     HeightRequest="50"
                     Text="LOG IN"
                     WidthRequest="400" />
+
+                <Button
+                    Margin="0,10,0,0"
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="RegisterPage"
+                    FontAttributes="Bold"
+                    FontFamily="Super-Bloom.ttf"
+                    FontSize="20"
+                    HeightRequest="50"
+                    Text="Ir a Regitrarse"
+                    WidthRequest="200" />
             </VerticalStackLayout>
         </Border>
 

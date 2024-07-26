@@ -17,6 +17,8 @@
         </Setter>
     </Style>
 
+
+
     <Style x:Key="BorderPartidosStyle" TargetType="Border">
         <Setter Property="BackgroundColor" Value="AliceBlue" />
         <Setter Property="Stroke" Value="Black" />

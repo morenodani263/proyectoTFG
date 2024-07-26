@@ -18,7 +18,7 @@
     <Grid ColumnDefinitions="*, 550, 950, *" RowDefinitions="*,100,570,*">
 
         <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-            <toolkit:AvatarView
+            <!--<toolkit:AvatarView
                 BorderColor="Black"
                 BorderWidth="3"
                 CornerRadius="10,10,10,10"
@@ -27,7 +27,7 @@
                 ImageSource="icono_persona.png"
                 StrokeThickness="3"
                 VerticalOptions="Start"
-                WidthRequest="100" />
+                WidthRequest="100" />-->
         </VerticalStackLayout>
 
         <Border

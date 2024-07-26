@@ -87,10 +87,25 @@ namespace UltimateMatch.ViewModels
                                                     server: APIService.URL_API);
             ResponseModel response = await APIService.ExecuteRequest(request);
             //si es 0 registro exitoso, sino error al registrar
-            await (response.Success == 0 ?
-            Application.Current.MainPage.DisplayAlert("REGISTRO USUARIO", response.Message, "ACEPTAR") :
-            App.Current.MainPage.DisplayAlert("ERROR AL REGISTRAR",
-            "No se ha podido registrar el usuario, por favor vuelva a intentarlo", "ACEPTAR"));
+            if(response.Success == 0)
+            {
+                await Navegar("LoginPage");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("ERROR AL REGISTRAR",
+                           "No se ha podido registrar el usuario, por favor vuelva a intentarlo", "ACEPTAR");
+            }
+           
+        }
+
+        [RelayCommand]
+        public async Task Navegar(string nombrePagina)
+        {
+            await Shell.Current.GoToAsync("//" + nombrePagina, new Dictionary<string, object>()
+            {
+                ["User"] = Usuario
+            });
         }
 
         [RelayCommand]

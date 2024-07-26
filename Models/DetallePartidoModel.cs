@@ -23,7 +23,7 @@ namespace UltimateMatch.Models
         [JsonProperty("numjornada")]
         public int NumJornada { get; set; }
 
-        [JsonProperty("avatar")]
+        [JsonProperty("partidoid")]
         public int Partido_Id { get; set; }
 
         public DetallePartidoModel()
