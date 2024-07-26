@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using UltimateMatch.Resources.Utils;
 
 namespace UltimateMatch
 {
@@ -16,7 +17,13 @@ namespace UltimateMatch
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            return builder.Build();
+            var app = builder.Build();
+
+            // Cambiar el tamaño de la pantalla
+            Task.Run(async () => await PantallaConfig.SetDimensionesPantallaAsync(1900, 900));
+
+            return app;
+            //return builder.Build();
         }
     }
 }

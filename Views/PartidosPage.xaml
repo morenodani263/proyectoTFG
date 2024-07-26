@@ -18,7 +18,7 @@
     <Grid ColumnDefinitions="*, 550, 950, *" RowDefinitions="*,100,570,*">
 
         <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-            <toolkit:AvatarView
+            <!--<toolkit:AvatarView
                 BorderColor="Black"
                 BorderWidth="3"
                 CornerRadius="10,10,10,10"
@@ -27,7 +27,7 @@
                 ImageSource="icono_persona.png"
                 StrokeThickness="3"
                 VerticalOptions="Start"
-                WidthRequest="100" />
+                WidthRequest="100" />-->
         </VerticalStackLayout>
 
         <Border
@@ -45,31 +45,37 @@
 
                     <HorizontalStackLayout Grid.Row="0">
                         <Button
+                            Margin="5,0,0,0"
                             Command="{Binding FechaEleccionRapidaCommand}"
                             CommandParameter="ayer"
                             Style="{DynamicResource ButtonsPartidosFecha}"
-                            Text="AYER" />
+                            Text="AYER"
+                            WidthRequest="110" />
                         <Button
+                            Margin="5,0,0,0"
                             Command="{Binding FechaEleccionRapidaCommand}"
                             CommandParameter="hoy"
                             Style="{DynamicResource ButtonsPartidosFecha}"
-                            Text="HOY" />
+                            Text="HOY"
+                            WidthRequest="110" />
                         <Button
+                            Margin="5,0,0,0"
                             Command="{Binding FechaEleccionRapidaCommand}"
                             CommandParameter="mañana"
                             Style="{DynamicResource ButtonsPartidosFecha}"
-                            Text="MAÑANA" />
+                            Text="MAÑANA"
+                            WidthRequest="120" />
                         <DatePicker
                             x:Name="datePicker"
-                            Margin="5"
+                            Margin="5,0,0,0"
                             Background="SteelBlue"
                             FontAttributes="Bold"
                             FontFamily="PramukhRounded-Bold.otf"
-                            FontSize="25"
+                            FontSize="18"
                             Format="dd/MM/yyyy"
                             HeightRequest="50"
                             TextColor="White"
-                            WidthRequest="120">
+                            WidthRequest="150">
                             <DatePicker.Behaviors>
                                 <toolkit:EventToCommandBehavior
                                     Command="{Binding FechaEleccionCommand}"
@@ -84,7 +90,7 @@
                         Grid.Row="1"
                         Background="Beige"
                         HeightRequest="500"
-                        WidthRequest="400">
+                        WidthRequest="500">
                         <!--  LISTADO DE PARTIDOS  -->
 
                         <CollectionView
@@ -99,20 +105,16 @@
                                         Background="AliceBlue"
                                         Stroke="Black"
                                         StrokeThickness="5"
-                                        Style="{DynamicResource BorderStyle}">
+                                        Style="{DynamicResource BorderStyle}"
+                                        WidthRequest="450">
                                         <VerticalStackLayout>
-                                            <!--<VerticalStackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer
-                                                    x:DataType="viewmodels:PartidosViewModel"
-                                                    Command="{Binding}"
-                                                    NumberOfTapsRequired="2" />
-                                            </VerticalStackLayout.GestureRecognizers>-->
 
-                                            <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*">
+                                            <Grid ColumnDefinitions="140,*,140" RowDefinitions="*,*">
                                                 <Image
                                                     Grid.Row="0"
                                                     Grid.Column="0"
                                                     HeightRequest="100"
+                                                    HorizontalOptions="Center"
                                                     Source="icono_persona.png"
                                                     WidthRequest="100" />
 
@@ -124,7 +126,10 @@
                                                     Style="{DynamicResource TextNormalStyle}"
                                                     Text="{Binding NombreEquipoLocal}" />
 
-                                                <HorizontalStackLayout Grid.Row="0" Grid.Column="1">
+                                                <HorizontalStackLayout
+                                                    Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="Center">
                                                     <Label
                                                         Margin="50,5,5,5"
                                                         HorizontalOptions="Center"
@@ -147,9 +152,9 @@
                                                 <Image
                                                     Grid.Row="0"
                                                     Grid.Column="2"
-                                                    HeightRequest="120"
-                                                    Source="{Binding GolesEquipoVisitante}"
-                                                    WidthRequest="120" />
+                                                    HeightRequest="100"
+                                                    Source="icono_persona.png"
+                                                    WidthRequest="100" />
 
                                                 <Label
                                                     Grid.Row="1"
@@ -233,15 +238,19 @@
 
         <VerticalStackLayout Grid.Row="1" Grid.Column="2">
             <HorizontalStackLayout Margin="80,0,0,0">
-                <Button
+                <!--<Button
                     Style="{DynamicResource ButtonsPartidosFecha}"
                     Text="COMPETICIONES"
-                    WidthRequest="160" />
+                    WidthRequest="160" />-->
                 <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="JugadoresPage"
                     Style="{DynamicResource ButtonsPartidosFecha}"
-                    Text="JUGADORES"
+                    Text="JUGADORES/EQUIPOS"
                     WidthRequest="160" />
                 <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="CrudPage"
                     Style="{DynamicResource ButtonsPartidosFecha}"
                     Text="GESTIÓN"
                     WidthRequest="160" />
@@ -663,10 +672,10 @@
 
                         <!--  LISTA CLASIFICACION  -->
                         <CollectionView
-                            Margin="0, 0, 0, 0"
                             Grid.Row="2"
                             Grid.Column="0"
                             Grid.ColumnSpan="5"
+                            Margin="0,0,0,0"
                             ItemsSource="{Binding ListaClasificacion}"
                             ItemsUpdatingScrollMode="KeepLastItemInView"
                             SelectionMode="Single">

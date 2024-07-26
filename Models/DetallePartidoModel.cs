@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,13 @@ namespace UltimateMatch.Models
         public int GolesEquipoVisitante { get; set; }
         public string NombreEquipoLocal { get; set; }
         public string NombreEquipoVisitante { get; set; }
+        public string Temporada { get; set; }
+
+        [JsonProperty("numjornada")]
+        public int NumJornada { get; set; }
+
+        [JsonProperty("partidoid")]
+        public int Partido_Id { get; set; }
 
         public DetallePartidoModel()
         {

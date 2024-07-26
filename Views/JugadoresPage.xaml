@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="UltimateMatch.Views.JugadoresPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:UltimateMatch.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:UltimateMatch.ViewModels"
+    Title="JugadoresPage"
+    x:DataType="viewmodels:JugadoresViewModel"
+    BindingContext="{viewmodels:JugadoresViewModel}">
+
+    <Grid
+        BackgroundColor="Beige"
+        ColumnDefinitions="20,400,400,600"
+        RowDefinitions="20,65,70,60,200,60,210">
+
+        <!--  TITULO JUGADORES/EQUIPOS  -->
+        <Border
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="0,10,0,0"
+            Background="OrangeRed"
+            Style="{DynamicResource BorderPartidosStyle}">
+            <Label
+                FontSize="25"
+                HorizontalOptions="Center"
+                Style="{DynamicResource TextNormalStyle}"
+                Text="JUGADORES / EQUIPOS"
+                VerticalOptions="Center" />
+        </Border>
+
+        <!--  FILTROS BUSQUEDA JUGADORES  -->
+        <Border
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="0,5,0,0"
+            Background="Black"
+            Style="{DynamicResource BorderPartidosStyle}">
+
+            <Label
+                FontSize="22"
+                HorizontalOptions="Start"
+                Style="{DynamicResource TextNormalStyle}"
+                Text="BUSQUEDA JUGADORES"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Border>
+        <!--  CONTENIDO BUSQUEDA JUGADORES  -->
+        <ScrollView
+            Grid.Row="4"
+            Grid.Column="1"
+            HeightRequest="200">
+            <Border
+                Margin="0"
+                Background="CornflowerBlue"
+                Style="{DynamicResource BorderPartidosStyle}">
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <!--  NOMBRE JUGADOR  -->
+                    <HorizontalStackLayout>
+                        <Label
+                            FontSize="20"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="Nombre jugador:"
+                            VerticalOptions="Center"
+                            WidthRequest="70" />
+                        <Entry
+                            x:Name="filter_name"
+                            Margin="5"
+                            Background="White"
+                            WidthRequest="180" />
+                        <Button
+                            Background="SteelBlue"
+                            Command="{Binding FiltroJugadorNombreCommand}"
+                            CommandParameter="{Binding Source={x:Reference filter_name}, Path=Text}"
+                            FontSize="18"
+                            HeightRequest="40"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="BUSCAR"
+                            WidthRequest="100" />
+                    </HorizontalStackLayout>
+
+                    <!--  TODOS LOS JUGADORES POR NOMBRE DE EQUIPO  -->
+                    <HorizontalStackLayout>
+                        <Label
+                            FontSize="20"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="Nombre equipo:"
+                            VerticalOptions="Center"
+                            WidthRequest="70" />
+                        <Entry
+                            x:Name="filter_nameEquipo"
+                            Margin="5"
+                            Background="White"
+                            WidthRequest="180" />
+                        <Button
+                            Background="SteelBlue"
+                            Command="{Binding FiltroJugadorNombreEquipoCommand}"
+                            CommandParameter="{Binding Source={x:Reference filter_nameEquipo}, Path=Text}"
+                            FontSize="18"
+                            HeightRequest="40"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="BUSCAR"
+                            WidthRequest="100" />
+                    </HorizontalStackLayout>
+
+                    <!--  MOSTRAR TODOS  -->
+                    <Button
+                        Background="SteelBlue"
+                        Command="{Binding ObtenerAllJugadoresCommand}"
+                        FontSize="20"
+                        HeightRequest="40"
+                        Style="{DynamicResource ButtonsPartidosFecha}"
+                        Text="MOSTRAR TODOS"
+                        WidthRequest="250" />
+
+                </VerticalStackLayout>
+
+            </Border>
+        </ScrollView>
+
+
+        <!--  FILTRO BUSQUEDA EQUIPOS  -->
+        <Border
+            Grid.Row="5"
+            Grid.Column="1"
+            Margin="0,5,0,0"
+            Background="Black"
+            Style="{DynamicResource BorderPartidosStyle}">
+
+            <Label
+                FontSize="22"
+                HorizontalOptions="Start"
+                Style="{DynamicResource TextNormalStyle}"
+                Text="BUSQUEDA EQUIPOS"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Border>
+        <!--  CONTENIDO BUSQUEDA EQUIPOS  -->
+        <ScrollView
+            Grid.Row="6"
+            Grid.Column="1"
+            HeightRequest="205">
+            <Border
+                Margin="0"
+                Background="CornflowerBlue"
+                Style="{DynamicResource BorderPartidosStyle}">
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <!--  NOMBRE EQUIPO  -->
+                    <HorizontalStackLayout>
+                        <Label
+                            FontSize="20"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="Nombre equipo:"
+                            VerticalOptions="Center"
+                            WidthRequest="70" />
+                        <Entry
+                            x:Name="filter_EquipoNombre"
+                            Margin="5"
+                            Background="White"
+                            WidthRequest="180" />
+                        <Button
+                            Background="SteelBlue"
+                            Command="{Binding FiltroEquipoNombreCommand}"
+                            CommandParameter="{Binding Source={x:Reference filter_EquipoNombre}, Path=Text}"
+                            FontSize="18"
+                            HeightRequest="40"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="BUSCAR"
+                            WidthRequest="100" />
+                    </HorizontalStackLayout>
+
+                    <!--  TODOS LOS EQUIPOS POR NOMBRE DE COMPETICION  -->
+                    <HorizontalStackLayout>
+                        <Label
+                            FontSize="20"
+                            Style="{DynamicResource TextNormalStyle}"
+                            Text="Nombre competicion:"
+                            VerticalOptions="Center"
+                            WidthRequest="70" />
+                        <Entry
+                            Margin="5"
+                            Background="White"
+                            WidthRequest="180" />
+                        <Button
+                            Background="SteelBlue"
+                            FontSize="18"
+                            HeightRequest="40"
+                            Style="{DynamicResource ButtonsPartidosFecha}"
+                            Text="BUSCAR"
+                            WidthRequest="100" />
+                    </HorizontalStackLayout>
+
+                    <!--  MOSTRAR TODOS  -->
+
+                    <Button
+                        Background="SteelBlue"
+                        Command="{Binding ObtenerAllEquiposCommand}"
+                        FontSize="20"
+                        HeightRequest="40"
+                        Style="{DynamicResource ButtonsPartidosFecha}"
+                        Text="MOSTRAR TODOS"
+                        WidthRequest="250" />
+
+                </VerticalStackLayout>
+
+            </Border>
+        </ScrollView>
+
+        <!--  BOTONES CABECERA  -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            Grid.Column="2"
+            Grid.ColumnSpan="5">
+            <HorizontalStackLayout Margin="80,0,0,0">
+                <!--<Button
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="COMPETICIONES"
+                    WidthRequest="160" />-->
+                <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="PartidosPage"
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="PARTIDOS"
+                    WidthRequest="160" />
+                <Button
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="CrudPage"
+                    Style="{DynamicResource ButtonsPartidosFecha}"
+                    Text="GESTIÓN"
+                    WidthRequest="160" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!--  TITULO LISTADO JUGADORES  -->
+        <Border
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="10,10,0,0"
+            BackgroundColor="Black"
+            IsVisible="{Binding IsModoJugador}"
+            Stroke="Black"
+            StrokeThickness="5"
+            Style="{DynamicResource BorderStyle}">
+            <Label
+                FontSize="25"
+                HorizontalOptions="Center"
+                Style="{DynamicResource TextNormalStyle}"
+                Text="LISTA JUGADORES"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Border>
+
+        <!--  TITULO LISTADO EQUIPO  -->
+        <Border
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="10,10,0,0"
+            BackgroundColor="Black"
+            IsVisible="{Binding IsModoEquipo}"
+            Stroke="Black"
+            StrokeThickness="5"
+            Style="{DynamicResource BorderStyle}">
+            <Label
+                FontSize="25"
+                HorizontalOptions="Center"
+                Style="{DynamicResource TextNormalStyle}"
+                Text="LISTA EQUIPOS"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Border>
+
+        <!--  COLLECTION VIEW JUGADORES  -->
+        <!--  listado de jugadores  -->
+        <CollectionView
+            Grid.Row="3"
+            Grid.RowSpan="5"
+            Grid.Column="2"
+            Margin="10,0,0,0"
+            IsVisible="{Binding IsModoJugador}"
+            ItemsSource="{Binding ListaJugadores}"
+            ItemsUpdatingScrollMode="KeepLastItemInView"
+            SelectedItem="{Binding Jugador}"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:JugadoresModel">
+                    <Border
+                        x:Name="listaJugadores"
+                        Margin="10"
+                        Background="CornflowerBlue"
+                        Stroke="Black"
+                        StrokeThickness="5"
+                        Style="{DynamicResource BorderStyle}">
+                        <VerticalStackLayout>
+                            <Grid ColumnDefinitions="100, 180" RowDefinitions="130">
+                                <HorizontalStackLayout
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center">
+                                    <!--  imagen jugador  -->
+                                    <Image
+                                        Margin="10"
+                                        HeightRequest="80"
+                                        IsAnimationPlaying="True"
+                                        Source="{Binding Avatar}"
+                                        WidthRequest="80" />
+                                </HorizontalStackLayout>
+
+
+                                <!--  nombre, apellidos  -->
+                                <VerticalStackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="0"
+                                    VerticalOptions="Center">
+                                    <HorizontalStackLayout VerticalOptions="Center">
+                                        <Label
+                                            Margin="0,10,0,0"
+                                            FontSize="24"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding Nombre}" />
+
+                                        <Label
+                                            Margin="5,10,0,0"
+                                            FontSize="24"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding Apellidos}" />
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!--  COLLECTION VIEW EQUIPOS  -->
+        <!--  listado de equipos  -->
+        <CollectionView
+            Grid.Row="3"
+            Grid.RowSpan="5"
+            Grid.Column="2"
+            Margin="10,0,0,0"
+            IsVisible="{Binding IsModoEquipo}"
+            ItemsSource="{Binding ListadoEquipos2}"
+            ItemsUpdatingScrollMode="KeepLastItemInView"
+            SelectedItem="{Binding EquipoActual}"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:EquipoModel">
+                    <Border
+                        x:Name="listaEquipos"
+                        Margin="10"
+                        Background="CornflowerBlue"
+                        Stroke="Black"
+                        StrokeThickness="5"
+                        Style="{DynamicResource BorderStyle}">
+                        <VerticalStackLayout>
+                            <Grid ColumnDefinitions="100, 180" RowDefinitions="130">
+                                <HorizontalStackLayout
+                                    Grid.Row="0"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center">
+                                    <!--  imagen equipo  -->
+                                    <!--<Image
+                                        Margin="10"
+                                        HeightRequest="80"
+                                        Source="icono_persona.png"
+                                        WidthRequest="80" />-->
+                                    <Image
+                                        Margin="10"
+                                        HeightRequest="80"
+                                        IsAnimationPlaying="True"
+                                        Source="{Binding Escudo}"
+                                        WidthRequest="80" />
+                                </HorizontalStackLayout>
+
+
+                                <!--  nombre  -->
+                                <VerticalStackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="0"
+                                    VerticalOptions="Center">
+                                    <HorizontalStackLayout VerticalOptions="Center">
+                                        <Label
+                                            Margin="0,10,0,0"
+                                            FontSize="24"
+                                            Style="{DynamicResource TextNormalStyle}"
+                                            Text="{Binding Nombre}" />
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--  JUGADORES DATOS  -->
+        <Border
+            Grid.Row="2"
+            Grid.Column="3"
+            Margin="10,10,0,0"
+            Background="Black"
+            Style="{DynamicResource BorderPartidosStyle}">
+            <Label
+                FontSize="25"
+                HorizontalOptions="Center"
+                Style="{DynamicResource TextNormalStyle}"
+                Text="TABLA DATOS JUGADORES"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Border>
+
+
+        <!--  TABLA DATOS JUGADORES  -->
+        <Border
+            Grid.Row="3"
+            Grid.RowSpan="6"
+            Grid.Column="3"
+            Margin="10,0,0,0"
+            Background="CornflowerBlue"
+            IsVisible="{Binding}"
+            Style="{DynamicResource BorderPartidosStyle}">
+
+            <Grid ColumnDefinitions="120, *" RowDefinitions="130,*,*,*,*,*,*">
+                <HorizontalStackLayout
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="6"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                    <!--  IMAGEN  -->
+                    <Image
+                        HeightRequest="120"
+                        HorizontalOptions="Center"
+                        Source="icono_persona.png"
+                        VerticalOptions="Center"
+                        WidthRequest="120" />
+
+                </HorizontalStackLayout>
+
+                <!--  NOMBRE  -->
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontSize="18"
+                    HorizontalOptions="End"
+                    Style="{DynamicResource TextNormalStyle}"
+                    Text="NOMBRE:"
+                    VerticalOptions="Center" />
+                <Entry
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Background="White"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    Text="{Binding Jugador.Nombre}"
+                    WidthRequest="350" />
+
+                <!--  APELLIDOS  -->
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    FontSize="18"
+                    HorizontalOptions="End"
+                    Style="{DynamicResource TextNormalStyle}"
+                    Text="APELLIDOS:"
+                    VerticalOptions="Center" />
+                <Entry
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Background="White"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    Text="{Binding Jugador.Apellidos}"
+                    WidthRequest="350" />
+
+                <!--  NACIONALIDAD  -->
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    FontSize="18"
+                    HorizontalOptions="End"
+                    Style="{DynamicResource TextNormalStyle}"
+                    Text="NACIONALIDAD:"
+                    VerticalOptions="Center" />
+                <Entry
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Background="White"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    Text="{Binding Jugador.Nacionalidad}"
+                    WidthRequest="350" />
+                <!--  POSICION  -->
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    FontSize="18"
+                    HorizontalOptions="End"
+                    Style="{DynamicResource TextNormalStyle}"
+                    Text="POSICION:"
+                    VerticalOptions="Center" />
+                <Entry
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Background="White"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    Text="{Binding Jugador.Posicion}"
+                    WidthRequest="350" />
+                <!--  EQUIPO  -->
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    FontSize="18"
+                    HorizontalOptions="End"
+                    Style="{DynamicResource TextNormalStyle}"
+                    Text="EQUIPO:"
+                    VerticalOptions="Center" />
+                <Entry
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Background="White"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    Text="{Binding Jugador.EquiposModel.Nombre}"
+                    WidthRequest="350" />
+
+            </Grid>
+        </Border>
+
+
+    </Grid>
+</ContentPage>
